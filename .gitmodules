@@ -1,0 +1,3 @@
+[submodule "Firefly/vendor/spdlog"]
+	path = Firefly/vendor/spdlog
+	url = https://github.com/gabime/spdlog
