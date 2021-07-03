@@ -4,8 +4,11 @@
 #ifdef FF_BUILD_DLL
 #define FIREFLY_API __declspec(dllexport)
 #else
-		#define FIREFLY_API __declspec(dllimport)
+#define FIREFLY_API __declspec(dllimport)
 #endif
 #else
-#error Hazel only support Windows
+//	#error Firefly only support Windows
+#define FIREFLY_API
 #endif
+
+#define BIT(x) (1 << x)

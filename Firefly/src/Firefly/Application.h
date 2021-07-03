@@ -4,14 +4,16 @@
 
 namespace Firefly
 {
-	class FIREFLY_API Application
-	{
-	public:
-		Application();
-		virtual ~Application();
-		void Run();
-	};
+    class FIREFLY_API Application
+    {
+    public:
+        Application();
 
-	// To be defined in CLIENT
-	Application* CreateApplication();
+        virtual ~Application();
+
+        void Run();
+    };
+
+    // To be defined in CLIENT
+    Application *CreateApplication();
 }

@@ -2,12 +2,16 @@
 **/bin/
 bin-int/
 
-# Hazel files
+cmake-build-*/
+
+# Firefly files
 # *.log
 
-# Visual Studio files and folder
+# IDE files and folder
 .vs/
 .vscode/
+.idea/
+
 **.sln
 **.vcxproj
 **.vcxproj.filters

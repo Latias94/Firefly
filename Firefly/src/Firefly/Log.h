@@ -6,17 +6,19 @@
 
 namespace Firefly
 {
-	class FIREFLY_API Log
-	{
-	public:
-		static void Init();
-		inline static std::shared_ptr<spdlog::logger>& GetCoreLogger() { return s_CoreLogger; }
-		inline static std::shared_ptr<spdlog::logger>& GetClientLogger() { return s_ClientLogger; }
+    class FIREFLY_API Log
+    {
+    public:
+        static void Init();
 
-	private:
-		static std::shared_ptr<spdlog::logger> s_CoreLogger;
-		static std::shared_ptr<spdlog::logger> s_ClientLogger;
-	};
+        inline static std::shared_ptr<spdlog::logger> &GetCoreLogger() { return s_CoreLogger; }
+
+        inline static std::shared_ptr<spdlog::logger> &GetClientLogger() { return s_ClientLogger; }
+
+    private:
+        static std::shared_ptr<spdlog::logger> s_CoreLogger;
+        static std::shared_ptr<spdlog::logger> s_ClientLogger;
+    };
 }
 
 // Core log macros

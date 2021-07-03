@@ -3,16 +3,16 @@
 class Sandbox : public Firefly::Application
 {
 public :
-	Sandbox()
-	{
-	}
+    Sandbox()
+    {
+    }
 
-	~Sandbox()
-	{
-	}
+    ~Sandbox()
+    {
+    }
 };
 
-Firefly::Application* Firefly::CreateApplication()
+Firefly::Application *Firefly::CreateApplication()
 {
-	return new Sandbox();
+    return new Sandbox();
 }
