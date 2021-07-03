@@ -32,7 +32,7 @@ namespace Firefly
     class FIREFLY_API WindowCloseEvent : public Event
     {
     public:
-        WindowCloseEvent() {}
+        WindowCloseEvent() = default;
 
         EVENT_CLASS_TYPE(WindowClose)
 
@@ -42,7 +42,7 @@ namespace Firefly
     class FIREFLY_API AppTickEvent : public Event
     {
     public:
-        AppTickEvent() {}
+        AppTickEvent() = default;
 
         EVENT_CLASS_TYPE(AppTick)
 
@@ -52,7 +52,7 @@ namespace Firefly
     class FIREFLY_API AppUpdateEvent : public Event
     {
     public:
-        AppUpdateEvent() {}
+        AppUpdateEvent() = default;
 
         EVENT_CLASS_TYPE(AppUpdate)
 
@@ -62,7 +62,7 @@ namespace Firefly
     class FIREFLY_API AppRenderEvent : public Event
     {
     public:
-        AppRenderEvent() {}
+        AppRenderEvent() = default;
 
         EVENT_CLASS_TYPE(AppRender)
 
