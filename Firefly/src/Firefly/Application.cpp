@@ -1,5 +1,8 @@
 #include "Application.h"
 
+#include "Firefly/Events/ApplicationEvent.h"
+#include "Firefly/Log.h"
+
 namespace Firefly
 {
     Application::Application()
@@ -12,8 +15,8 @@ namespace Firefly
 
     void Application::Run()
     {
-        while (true)
-        {
-        }
+        WindowResizeEvent e(1280, 720);
+        FF_TRACE(e);
+        while (true);
     }
 }
