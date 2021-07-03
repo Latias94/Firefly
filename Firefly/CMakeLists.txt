@@ -10,9 +10,26 @@ set(FF_CROSS_PLATFORM_FILES
         ${Firefly_header_files}
         )
 
-add_library(Firefly STATIC ${FF_CROSS_PLATFORM_FILES})
+file(GLOB_RECURSE win32_platform_source_files "src/Platform/Windows/*.cpp")
+file(GLOB_RECURSE win32_platform_header_files "src/Platform/Windows/*.h")
+
+file(GLOB_RECURSE linux_platform_source_files "src/Platform/Linux/*.cpp")
+file(GLOB_RECURSE linux_platform_header_files "src/Platform/Linux/*.h")
+
+if(WIN32)
+    set(FF_OS_FILES ${win32_platform_source_files} ${win32_platform_header_files})
+elseif("${CMAKE_SYSTEM}" MATCHES "Linux")
+    set(FF_OS_FILES ${linux_platform_source_files} ${linux_platform_header_files})
+endif()
+
+add_library(Firefly STATIC ${FF_CROSS_PLATFORM_FILES} ${FF_OS_FILES})
 
 target_precompile_headers(Firefly PUBLIC "src/ffpch.h")
+
+target_include_directories(Firefly PRIVATE
+        "vendor/GLFW/include"
+        "vendor/glad/include"
+        )
 
 target_include_directories(Firefly PUBLIC
         "src"
@@ -35,3 +52,4 @@ target_compile_definitions(
         $<$<CONFIG:MinSizeRel>:FF_RELEASE>
 )
 
+target_link_libraries(Firefly PRIVATE glfw glad)

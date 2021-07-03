@@ -1,3 +1,5 @@
+staticRuntime = "on"
+
 workspace "Firefly"
     architecture "x86_64"
     startproject "Sandbox"
@@ -11,107 +13,43 @@ workspace "Firefly"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
-project "Firefly"
-    location "Firefly"
-    kind "SharedLib"
-    language "C++"
-
-    targetdir ("bin/" .. outputdir .. "/%{prj.name}")
-    objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
-
-    files
-    {
-        "%{prj.name}/src/**.h",
-        "%{prj.name}/src/**.cpp"
-    }
-
-    includedirs
-    {
-        "%{prj.name}/vendor/spdlog/include",
-        "Firefly/src"
-    }
-
-    filter "system:windows"
-        cppdialect "C++17"
-        staticruntime "On"
-        systemversion "latest"
-
-        defines
-        {
-            "FF_BUILD_DLL",
-            "FF_PLATFORM_WINDOWS",
-            "_WIN32"
-        }
-
-        postbuildcommands
-        {
-            ("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
-        }
-
-    filter "system:linux" --not working
-		pic "on"
-		systemversion "latest"
-		staticruntime "on"
-
-    filter "configurations:Debug"
-        defines "FF_DEBUG"
-        symbols "On"
-    filter "configurations:Release"
-        defines "FF_RELEASE"
-        optimize "On"
-    filter "configurations:Dist"
-        defines "FF_DIST"
-        optimize "On"
+includeDir = {}
+includeDir["spdlog"]   = "%{wks.location}/Firefly/vendor/spdlog/include"
+includeDir["GLFW"]     = "%{wks.location}/Firefly/vendor/GLFW/include"
+includeDir["glad"]     = "%{wks.location}/Firefly/vendor/glad/include"
+--includeDir["imgui"]    = "%{wks.location}/Firefly/vendor/imgui"
+--includeDir["glm"]      = "%{wks.location}/Firefly/vendor/glm"
+--includeDir["stb"]      = "%{wks.location}/Firefly/vendor/stb"
+--includeDir["entt"]     = "%{wks.location}/Firefly/vendor/entt/include"
+--includeDir["box2d"]    = "%{wks.location}/Firefly/vendor/box2d/include"
+--includeDir["json"]     = "%{wks.location}/Firefly/vendor/json/include"
+--includeDir["fmt"]      = "%{wks.location}/Firefly/vendor/fmt/include"
+--includeDir["yaml_cpp"] = "%{wks.location}/Firefly/vendor/yaml-cpp/include"
 
 
-project "Sandbox"
-    location "Sandbox"
-    kind "ConsoleApp"
-    language "C++"
+clientIncludes = {
+    "%{wks.location}/Firefly/src",
+    "%{includeDir.spdlog}",
+}
 
-    targetdir ("bin/" .. outputdir .. "/%{prj.name}")
-    objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+linkLibs = {
+    "GLFW",
+    "glad",
+    --"imgui",
+    --"box2d",
+    --"yaml-cpp",
+}
 
-    files
-    {
-        "%{prj.name}/src/**.h",
-        "%{prj.name}/src/**.cpp"
-    }
+group "Dependencies"
+    include "Firefly/vendor/GLFW"
+    include "Firefly/vendor/glad"
+    --include "Firefly/vendor/imgui"
+    --include "Firefly/vendor/box2d"
+    --include "Firefly/vendor/yaml-cpp"
+group ""
 
-    includedirs
-    {
-        "Firefly/vendor/spdlog/include",
-        "Firefly/src"
-    }
 
-    links
-    {
-        "Firefly"
-    }
+include "Firefly"
+include "Sandbox"
 
-    filter "system:windows"
-        cppdialect "C++17"
-        staticruntime "On"
-        systemversion "latest"
 
-        defines
-        {
-            "FF_PLATFORM_WINDOWS",
-        }
-
-    filter "system:linux" --not working
-		pic "on"
-		systemversion "latest"
-		staticruntime "on"
-
-    filter "configurations:Debug"
-        defines "FF_DEBUG"
-        symbols "On"
-
-    filter "configurations:Release"
-        defines "FF_RELEASE"
-        optimize "On"
-
-    filter "configurations:Dist"
-        defines "FF_DIST"
-        optimize "On"

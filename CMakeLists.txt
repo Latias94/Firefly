@@ -6,6 +6,10 @@ endif ()
 
 project(Firefly)
 
+# vendor
+add_subdirectory(Firefly/vendor/GLFW)
+add_subdirectory(Firefly/vendor/glad)
+
 set(CMAKE_CXX_STANDARD 17)
 
 add_subdirectory(Firefly)

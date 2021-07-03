@@ -7,4 +7,5 @@ add_executable(Sandbox
         )
 
 set_property(TARGET Sandbox PROPERTY VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/Sandbox")
+
 target_link_libraries(Sandbox PRIVATE Firefly)
