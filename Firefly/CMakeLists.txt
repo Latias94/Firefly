@@ -3,8 +3,8 @@ file(GLOB_RECURSE Firefly_header_files "src/Firefly/*.h")
 
 set(FF_CROSS_PLATFORM_FILES
         "src/Firefly.h"
-        "src/pch.cpp"
-        "src/pch.h"
+        "src/ffpch.cpp"
+        "src/ffpch.h"
 
         ${Firefly_source_files}
         ${Firefly_header_files}
@@ -12,7 +12,7 @@ set(FF_CROSS_PLATFORM_FILES
 
 add_library(Firefly STATIC ${FF_CROSS_PLATFORM_FILES})
 
-target_precompile_headers(Firefly PUBLIC "src/pch.h")
+target_precompile_headers(Firefly PUBLIC "src/ffpch.h")
 
 target_include_directories(Firefly PUBLIC
         "src"
@@ -28,10 +28,10 @@ target_compile_definitions(
         "GLFW_INCLUDE_NONE"
 
         PUBLIC
-        $<$<CONFIG:Debug>:OE_DEBUG>
-        $<$<CONFIG:Release>:OE_RELEASE>
+        $<$<CONFIG:Debug>:FF_DEBUG>
+        $<$<CONFIG:Release>:FF_RELEASE>
 
-        $<$<CONFIG:RelWithDebInfo>:OE_DEBUG>
-        $<$<CONFIG:MinSizeRel>:OE_RELEASE>
+        $<$<CONFIG:RelWithDebInfo>:FF_DEBUG>
+        $<$<CONFIG:MinSizeRel>:FF_RELEASE>
 )
 

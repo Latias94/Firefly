@@ -1,3 +1,4 @@
+#include "ffpch.h"
 #include "Application.h"
 
 #include "Firefly/Events/ApplicationEvent.h"
