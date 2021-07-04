@@ -5,6 +5,11 @@
 #include "Firefly/Layer.h"
 #include "Firefly/Log.h"
 
+#include "Firefly/KeyCodes.h"
+#include "Firefly/MouseButtonCodes.h"
+
+#include "Firefly/ImGui/ImGuiLayer.h"
+
 // Entry Point-------------------
 #include "Firefly/EntryPoint.h"
 //-------------------------------

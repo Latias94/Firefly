@@ -9,6 +9,7 @@ project(Firefly)
 # vendor
 add_subdirectory(Firefly/vendor/GLFW)
 add_subdirectory(Firefly/vendor/glad)
+add_subdirectory(Firefly/vendor/imgui)
 
 set(CMAKE_CXX_STANDARD 17)
 

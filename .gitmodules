@@ -4,3 +4,6 @@
 [submodule "Firefly/vendor/GLFW"]
 	path = Firefly/vendor/GLFW
 	url = https://github.com/glfw/glfw
+[submodule "Firefly/vendor/imgui"]
+	path = Firefly/vendor/imgui
+	url = https://github.com/ocornut/imgui

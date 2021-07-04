@@ -35,6 +35,7 @@ target_include_directories(Firefly PUBLIC
         "src"
         "vendor"
         "vendor/spdlog/include"
+        "vendor/imgui"
         )
 
 target_compile_definitions(
@@ -53,3 +54,4 @@ target_compile_definitions(
 )
 
 target_link_libraries(Firefly PRIVATE glfw glad)
+target_link_libraries(Firefly PUBLIC imgui)

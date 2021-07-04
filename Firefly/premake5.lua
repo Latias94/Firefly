@@ -22,7 +22,8 @@ project "Firefly"
         "src",
         "%{includeDir.spdlog}",
         "%{includeDir.GLFW}",
-        "%{includeDir.glad}"
+        "%{includeDir.glad}",
+        "%{includeDir.imgui}",
     }
 
     links (linkLibs)
