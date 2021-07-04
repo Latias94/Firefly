@@ -1,8 +1,8 @@
 #pragma once
 
 // For use by Firefly applications
-#include <stdio.h>
 #include "Firefly/Application.h"
+#include "Firefly/Layer.h"
 #include "Firefly/Log.h"
 
 // Entry Point-------------------

@@ -12,7 +12,7 @@ namespace Firefly
     enum class EventType
     {
         None = 0,
-        WindowClose, WindowResize, WindowFocus, WindowLostForcus, WindowMoved,
+        WindowClose, WindowResize, WindowFocus, WindowLostFocus, WindowMoved,
         AppTick, AppUpdate, AppRender,
         KeyPressed, KeyReleased,
         MouseButtonPressed, MouseButtonReleased, MouseMoved, MouseScrolled
@@ -41,6 +41,8 @@ namespace Firefly
         friend class EventDispatcher;
 
     public:
+        bool Handled = false;
+
         virtual EventType GetEventType() const = 0;
         virtual const char* GetName() const = 0;
         virtual int GetCategoryFlags() const = 0;
@@ -51,9 +53,6 @@ namespace Firefly
         {
             return GetCategoryFlags() & category;
         }
-
-    protected:
-        bool m_Handled = false;
     };
 
     class EventDispatcher
@@ -66,9 +65,12 @@ namespace Firefly
         template<typename T>
         bool Dispatch(EventFn<T> func)
         {
+            // Checks if the event's type is the same as the type passed in (T),
+            // and if it is then it will call the function provided
             if (m_Event.GetEventType() == T::GetStaticType())
             {
-                m_Event.m_Handled = func(*(T*) &m_Event);
+                // execute event
+                m_Event.Handled = func(*(T*) &m_Event);
                 return true;
             }
             return false;
