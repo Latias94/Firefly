@@ -5,8 +5,6 @@
 
 namespace Firefly
 {
-    #define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
-
     Application* Application::s_Instance = nullptr;
 
     Application::Application()
@@ -15,7 +13,7 @@ namespace Firefly
         s_Instance = this;
 
         m_Window = std::unique_ptr<Window>(Window::Create());
-        m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
+        m_Window->SetEventCallback(FF_BIND_EVENT_FN(Application::OnEvent));
     }
 
     Application::~Application()
@@ -38,7 +36,7 @@ namespace Firefly
     {
         EventDispatcher dispatcher(e);
         // if event type is close event, call OnWindowClose
-        dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
+        dispatcher.Dispatch<WindowCloseEvent>(FF_BIND_EVENT_FN(Application::OnWindowClose));
 
         FF_CORE_TRACE(e);
 
