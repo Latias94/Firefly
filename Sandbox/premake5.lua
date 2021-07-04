@@ -34,12 +34,15 @@ project "Sandbox"
 
     filter "configurations:Debug"
         defines "FF_DEBUG"
+        runtime "Debug"
         symbols "on"
 
     filter "configurations:Release"
         defines "FF_RELEASE"
+        runtime "Release"
         optimize "on"
 
     filter "configurations:Dist"
         defines "FF_DIST"
+        runtime "Release"
         optimize "on"

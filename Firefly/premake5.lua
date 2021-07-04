@@ -36,7 +36,7 @@ project "Firefly"
         {
             "FF_BUILD_DLL",
             "FF_PLATFORM_WINDOWS",
-            "_WIN32"
+            "_WIN32",
         }
 
         postbuildcommands
@@ -50,12 +50,15 @@ project "Firefly"
 
     filter "configurations:Debug"
         defines "FF_DEBUG"
+        runtime "Debug"
         symbols "on"
 
     filter "configurations:Release"
         defines "FF_RELEASE"
+        runtime "Release"
         optimize "on"
 
     filter "configurations:Dist"
         defines "FF_DIST"
+        runtime "Release"
         optimize "on"
