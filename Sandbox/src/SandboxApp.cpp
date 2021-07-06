@@ -5,7 +5,6 @@ class ExampleLayer : public Firefly::Layer
 public:
     ExampleLayer() : Layer("Example")
     {
-
     }
 
     void OnUpdate() override

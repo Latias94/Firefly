@@ -14,7 +14,9 @@ project "Firefly"
     files
     {
         "src/**.h",
-        "src/**.cpp"
+        "src/**.cpp",
+        "%{includeDir.glm}/glm/**.hpp", -- header based library
+        "%{includeDir.glm}/glm/**.inl",
     }
 
     includedirs
@@ -24,6 +26,7 @@ project "Firefly"
         "%{includeDir.GLFW}",
         "%{includeDir.glad}",
         "%{includeDir.imgui}",
+        "%{includeDir.glm}",
     }
 
     links (linkLibs)

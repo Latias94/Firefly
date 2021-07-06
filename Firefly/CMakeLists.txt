@@ -36,6 +36,7 @@ target_include_directories(Firefly PUBLIC
         "vendor"
         "vendor/spdlog/include"
         "vendor/imgui"
+        "vendor/glm"
         )
 
 target_compile_definitions(

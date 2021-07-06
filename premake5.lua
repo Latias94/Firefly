@@ -18,7 +18,7 @@ includeDir["spdlog"]   = "%{wks.location}/Firefly/vendor/spdlog/include"
 includeDir["GLFW"]     = "%{wks.location}/Firefly/vendor/GLFW/include"
 includeDir["glad"]     = "%{wks.location}/Firefly/vendor/glad/include"
 includeDir["imgui"]    = "%{wks.location}/Firefly/vendor/imgui"
---includeDir["glm"]      = "%{wks.location}/Firefly/vendor/glm"
+includeDir["glm"]      = "%{wks.location}/Firefly/vendor/glm"
 includeDir["stb"]      = "%{wks.location}/Firefly/vendor/stb"
 --includeDir["entt"]     = "%{wks.location}/Firefly/vendor/entt/include"
 --includeDir["box2d"]    = "%{wks.location}/Firefly/vendor/box2d/include"
@@ -30,6 +30,8 @@ includeDir["stb"]      = "%{wks.location}/Firefly/vendor/stb"
 clientIncludes = {
     "%{wks.location}/Firefly/src",
     "%{includeDir.spdlog}",
+    "%{includeDir.imgui}",
+    "%{includeDir.glm}",
 }
 
 linkLibs = {
