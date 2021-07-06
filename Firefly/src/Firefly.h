@@ -5,6 +5,7 @@
 #include "Firefly/Layer.h"
 #include "Firefly/Log.h"
 
+#include "Firefly/Input.h"
 #include "Firefly/KeyCodes.h"
 #include "Firefly/MouseButtonCodes.h"
 
