@@ -1,4 +1,5 @@
 #include <Firefly.h>
+#include "imgui/imgui.h"
 
 class ExampleLayer : public Firefly::Layer
 {
@@ -11,6 +12,13 @@ public:
     {
         if (Firefly::Input::IsKeyPressed(FF_KEY_TAB))
             FF_TRACE("Tab key is pressed (poll)!");
+    }
+
+    virtual void OnImGuiRender() override
+    {
+        ImGui::Begin("Test");
+        ImGui::Text("Hello World");
+        ImGui::End();
     }
 
     void OnEvent(Firefly::Event& event) override
@@ -31,7 +39,6 @@ public :
     Sandbox()
     {
         PushLayer(new ExampleLayer());
-        PushOverlay(new Firefly::ImGuiLayer());
     }
 
     ~Sandbox()

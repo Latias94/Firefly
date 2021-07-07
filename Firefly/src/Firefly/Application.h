@@ -7,6 +7,8 @@
 #include "Firefly/Events/Event.h"
 #include "Firefly/Events/ApplicationEvent.h"
 
+#include "Firefly/ImGui/ImGuiLayer.h"
+
 namespace Firefly
 {
     class FIREFLY_API Application
@@ -32,6 +34,7 @@ namespace Firefly
         std::unique_ptr<Window> m_Window;
         bool                    m_Running = true;
 
+        ImGuiLayer* m_ImGuiLayer;
         LayerStack m_LayerStack;
     private:
         static Application* s_Instance;
