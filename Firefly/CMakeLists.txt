@@ -45,6 +45,7 @@ target_compile_definitions(
         PRIVATE
         "_CRT_SECURE_NO_WARNINGS"
         "GLFW_INCLUDE_NONE"
+        "FF_PLATFORM_WINDOWS"
 
         PUBLIC
         $<$<CONFIG:Debug>:FF_DEBUG>

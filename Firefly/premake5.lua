@@ -1,6 +1,6 @@
 project "Firefly"
     location "Firefly"
-    kind "SharedLib"
+    kind "StaticLib"
 
     language "C++"
     cppdialect "C++17"
@@ -17,6 +17,11 @@ project "Firefly"
         "src/**.cpp",
         "%{includeDir.glm}/glm/**.hpp", -- header based library
         "%{includeDir.glm}/glm/**.inl",
+    }
+
+    defines
+    {
+        "_CRT_SECURE_NO_WARNINGS"
     }
 
     includedirs
@@ -39,12 +44,7 @@ project "Firefly"
         {
             "FF_BUILD_DLL",
             "FF_PLATFORM_WINDOWS",
-            "_WIN32",
-        }
-
-        postbuildcommands
-        {
-            ("{COPY} %{cfg.buildtarget.relpath} \"../../bin/" .. outputdir .. "/Sandbox/\"")
+            "_WIN32"
         }
 
     filter "system:linux" --not working

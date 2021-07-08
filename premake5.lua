@@ -1,4 +1,4 @@
-staticRuntime = "off" -- VS only. on -> MultiThreaded, off -> MultiThreadedDLL.
+staticRuntime = "on" -- VS only. on -> MultiThreaded, off -> MultiThreadedDLL.
 
 workspace "Firefly"
     architecture "x86_64"
