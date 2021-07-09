@@ -16,13 +16,19 @@ file(GLOB_RECURSE win32_platform_header_files "src/Platform/Windows/*.h")
 file(GLOB_RECURSE linux_platform_source_files "src/Platform/Linux/*.cpp")
 file(GLOB_RECURSE linux_platform_header_files "src/Platform/Linux/*.h")
 
+file(GLOB_RECURSE opengl_platform_source_files "src/Platform/OpenGL/*.cpp")
+file(GLOB_RECURSE opengl_platform_header_files "src/Platform/OpenGL/*.h")
+
 if(WIN32)
     set(FF_OS_FILES ${win32_platform_source_files} ${win32_platform_header_files})
 elseif("${CMAKE_SYSTEM}" MATCHES "Linux")
     set(FF_OS_FILES ${linux_platform_source_files} ${linux_platform_header_files})
 endif()
 
-add_library(Firefly STATIC ${FF_CROSS_PLATFORM_FILES} ${FF_OS_FILES})
+add_library(Firefly STATIC ${FF_CROSS_PLATFORM_FILES} ${FF_OS_FILES}
+        ${opengl_platform_source_files}
+        ${opengl_platform_header_files}
+        )
 
 target_precompile_headers(Firefly PUBLIC "src/ffpch.h")
 

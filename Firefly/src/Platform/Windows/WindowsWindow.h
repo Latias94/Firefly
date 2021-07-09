@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Firefly/Window.h"
-#include "GLFW/glfw3.h"
+#include "Firefly/Renderer/GraphicsContext.h"
 
 struct GLFWwindow;
 
@@ -35,6 +35,7 @@ namespace Firefly
 
     private:
         GLFWwindow *m_Window;
+        GraphicsContext* m_Context;
 
         struct WindowData
         {
