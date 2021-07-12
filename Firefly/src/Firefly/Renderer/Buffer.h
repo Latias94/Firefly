@@ -116,7 +116,6 @@ namespace Firefly
         virtual const BufferLayout& GetLayout() const = 0;
 
         static VertexBuffer* Create(float* vertices, uint32_t size);
-
     };
 
     class IndexBuffer
