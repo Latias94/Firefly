@@ -13,13 +13,13 @@ namespace Firefly
     {
         switch (Renderer::GetAPI())
         {
-            case RendererAPI::None:
+            case RendererAPI::API::None:
             FF_CORE_ASSERT(false, "RendererAPI::None is currently not supported!")
                 return nullptr;
-            case RendererAPI::OpenGL:
+            case RendererAPI::API::OpenGL:
                 return new OpenGLVertexBuffer(vertices, size);
         }
-        FF_CORE_ASSERT(false, "Unknown RendererAPI!");
+        FF_CORE_ASSERT(false, "Unknown RendererAPI!")
 
         return nullptr;
     }
@@ -29,13 +29,13 @@ namespace Firefly
     {
         switch (Renderer::GetAPI())
         {
-            case RendererAPI::None:
+            case RendererAPI::API::None:
             FF_CORE_ASSERT(false, "RendererAPI::None is currently not supported!")
                 return nullptr;
-            case RendererAPI::OpenGL:
+            case RendererAPI::API::OpenGL:
                 return new OpenGLIndexBuffer(indices, count);
         }
-        FF_CORE_ASSERT(false, "Unknown RendererAPI!");
+        FF_CORE_ASSERT(false, "Unknown RendererAPI!")
 
         return nullptr;
     }
