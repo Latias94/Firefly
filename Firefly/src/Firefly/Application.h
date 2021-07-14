@@ -11,6 +11,7 @@
 #include "Firefly/Renderer/Shader.h"
 #include "Firefly/Renderer/Buffer.h"
 #include "Firefly/Renderer/VertexArray.h"
+#include "Firefly/Renderer/OrthographicCamera.h"
 
 namespace Firefly
 {
@@ -45,6 +46,8 @@ namespace Firefly
 
         std::shared_ptr<Shader>      m_BlueShader;
         std::shared_ptr<VertexArray> m_SquareVA;
+
+        OrthographicCamera m_Camera;
 
     private:
         static Application* s_Instance;
