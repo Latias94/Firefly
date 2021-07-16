@@ -8,14 +8,10 @@
 #include "Firefly/Events/ApplicationEvent.h"
 
 #include "Firefly/ImGui/ImGuiLayer.h"
-#include "Firefly/Renderer/Shader.h"
-#include "Firefly/Renderer/Buffer.h"
-#include "Firefly/Renderer/VertexArray.h"
-#include "Firefly/Renderer/OrthographicCamera.h"
 
 namespace Firefly
 {
-    class FIREFLY_API Application
+    class Application
     {
     public:
         Application();
@@ -40,14 +36,6 @@ namespace Firefly
 
         ImGuiLayer* m_ImGuiLayer;
         LayerStack m_LayerStack;
-
-        std::shared_ptr<Shader>       m_Shader;
-        std::shared_ptr<VertexArray>  m_VertexArray;
-
-        std::shared_ptr<Shader>      m_BlueShader;
-        std::shared_ptr<VertexArray> m_SquareVA;
-
-        OrthographicCamera m_Camera;
 
     private:
         static Application* s_Instance;
