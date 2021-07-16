@@ -4,6 +4,7 @@
 #include "Firefly/Renderer/Renderer.h"
 
 #include "Input.h"
+#include <GLFW/glfw3.h>
 
 namespace Firefly
 {
@@ -57,8 +58,13 @@ namespace Firefly
     {
         while (m_Running)
         {
+            float time = (float) glfwGetTime(); // will be replace with different Platform's Platform::GetTime
+
+            Timestep timestep = time - m_LastFrameTime;
+            m_LastFrameTime = time;
+
             for (Layer* layer: m_LayerStack)
-                layer->OnUpdate();
+                layer->OnUpdate(timestep);
 
             m_ImGuiLayer->Begin();
             for (Layer* layer : m_LayerStack)

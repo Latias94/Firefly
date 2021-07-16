@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Firefly/Core.h"
+#include "Firefly/Core/Timestep.h"
 #include "Firefly/Events/Event.h"
 
 namespace Firefly
@@ -15,7 +16,7 @@ namespace Firefly
 
         virtual void OnDetach() {}
 
-        virtual void OnUpdate() {}
+        virtual void OnUpdate(Timestep ts) {}
 
         virtual void OnImGuiRender() {}
 

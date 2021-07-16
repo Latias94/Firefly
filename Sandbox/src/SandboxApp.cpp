@@ -90,7 +90,7 @@ public:
                 color = v_Color;
             }
         )";
-        m_Shader.reset(new Firefly::Shader(vertexSrc, fragmentSrc));
+        m_Shader = std::make_shared<Firefly::Shader>(vertexSrc, fragmentSrc);
 
         std::string blueShaderVertexSrc2   = R"(
             #version 330 core
@@ -115,29 +115,31 @@ public:
 
             void main()
             {
-                color = vec4(0.2,0.3, 0.8, 1.0);
+                color = vec4(0.2, 0.3, 0.8, 1.0);
             }
         )";
 
-        m_BlueShader.reset(new Firefly::Shader(blueShaderVertexSrc2, blueShaderFragmentSrc2));
+        m_BlueShader = std::make_shared<Firefly::Shader>(blueShaderVertexSrc2, blueShaderFragmentSrc2);
 
     }
 
-    void OnUpdate() override
+    void OnUpdate(Firefly::Timestep ts) override
     {
+
+        FF_TRACE("Delta time: {0}s ({1}ms)", ts.GetSeconds(), ts.GetMilliseconds());
         if (Firefly::Input::IsKeyPressed(FF_KEY_LEFT))
-            m_CameraPosition.x -= m_CameraMoveSpeed;
+            m_CameraPosition.x -= m_CameraMoveSpeed * ts;
         else if (Firefly::Input::IsKeyPressed(FF_KEY_RIGHT))
-            m_CameraPosition.x += m_CameraMoveSpeed;
+            m_CameraPosition.x += m_CameraMoveSpeed * ts;
         if (Firefly::Input::IsKeyPressed(FF_KEY_DOWN))
-            m_CameraPosition.y -= m_CameraMoveSpeed;
+            m_CameraPosition.y -= m_CameraMoveSpeed * ts;
         else if (Firefly::Input::IsKeyPressed(FF_KEY_UP))
-            m_CameraPosition.y += m_CameraMoveSpeed;
+            m_CameraPosition.y += m_CameraMoveSpeed * ts;
 
         if (Firefly::Input::IsKeyPressed(FF_KEY_A))
-            m_CameraRotation += m_CameraRotationSpeed;
-        else if (Firefly::Input::IsKeyPressed(FF_KEY_D))
-            m_CameraRotation -= m_CameraRotationSpeed;
+            m_CameraRotation += m_CameraRotationSpeed * ts;
+        if (Firefly::Input::IsKeyPressed(FF_KEY_D))
+            m_CameraRotation -= m_CameraRotationSpeed * ts;
 
         Firefly::RenderCommand::SetClearColor({0.1f, 0.1f, 0.1f, 1});
         Firefly::RenderCommand::Clear();
@@ -171,9 +173,9 @@ private:
     Firefly::OrthographicCamera m_Camera;
 
     glm::vec3 m_CameraPosition;
-    float     m_CameraMoveSpeed = 0.1f;
-    float     m_CameraRotation  = 0.0f;
-    float     m_CameraRotationSpeed = 0.1f;
+    float     m_CameraMoveSpeed     = 5.0f;
+    float     m_CameraRotation      = 0.0f;
+    float     m_CameraRotationSpeed = 180.0f;
 };
 
 class Sandbox : public Firefly::Application

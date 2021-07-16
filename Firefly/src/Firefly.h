@@ -9,6 +9,8 @@
 #include "Firefly/KeyCodes.h"
 #include "Firefly/MouseButtonCodes.h"
 
+#include "Firefly/Core/Timestep.h"
+
 #include "Firefly/ImGui/ImGuiLayer.h"
 
 // Renderer ---------------------
