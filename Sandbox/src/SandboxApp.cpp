@@ -1,6 +1,7 @@
 #include <Firefly.h>
 
 #include <memory>
+#include <glm/ext/matrix_transform.hpp>
 #include "imgui.h"
 
 class ExampleLayer : public Firefly::Layer
@@ -35,10 +36,10 @@ public:
         m_SquareVA.reset(Firefly::VertexArray::Create());
 
         float squareVertices[3 * 4] = {
-                -0.75f, -0.75f, 0.0f,
-                0.75f, -0.75f, 0.0f,
-                0.75f, 0.75f, 0.0f,
-                -0.75f, 0.75f, 0.0f,
+                -0.5f, -0.5f, 0.0f,
+                0.5f, -0.5f, 0.0f,
+                0.5f, 0.5f, 0.0f,
+                -0.5f, 0.5f, 0.0f,
         };
 
         std::shared_ptr<Firefly::VertexBuffer> squareVB;
@@ -68,12 +69,13 @@ public:
             out vec4 v_Color;
 
             uniform mat4 u_ViewProjection;
+            uniform mat4 u_Transform;
 
             void main()
             {
                 v_Position = a_Position;
                 v_Color = a_Color;
-                gl_Position = u_ViewProjection * vec4(a_Position, 1.0);
+                gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
             }
         )";
         std::string fragmentSrc = R"(
@@ -99,11 +101,12 @@ public:
 
             out vec3 v_Position;
             uniform mat4 u_ViewProjection;
+            uniform mat4 u_Transform;
 
             void main()
             {
                 v_Position = a_Position;
-                gl_Position = u_ViewProjection * vec4(a_Position, 1.0);
+                gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
             }
         )";
         std::string blueShaderFragmentSrc2 = R"(
@@ -149,7 +152,18 @@ public:
 
         Firefly::Renderer::BeginScene(m_Camera);
 
-        Firefly::Renderer::Submit(m_BlueShader, m_SquareVA);
+        glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
+
+        for (int y = 0; y < 20; ++y)
+        {
+            for (int x = 0; x < 20; ++x)
+            {
+                glm::vec3 pos(x * 0.11f, y * 0.11f, 0.0f);
+                glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
+                Firefly::Renderer::Submit(m_BlueShader, m_SquareVA, transform);
+            }
+        }
+
         Firefly::Renderer::Submit(m_Shader, m_VertexArray);
 
         Firefly::Renderer::EndScene();

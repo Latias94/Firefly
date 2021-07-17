@@ -12,6 +12,8 @@ cmake-build-*/
 .vscode/
 .idea/
 
+**/imgui.ini
+
 **.sln
 **.vcxproj
 **.vcxproj.filters
