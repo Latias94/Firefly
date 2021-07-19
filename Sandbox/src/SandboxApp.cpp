@@ -1,8 +1,11 @@
 #include <Firefly.h>
 
-#include <memory>
-#include <glm/ext/matrix_transform.hpp>
+#include "Platform/OpenGL/OpenGLShader.h"
+
 #include "imgui.h"
+
+#include <glm/ext/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 class ExampleLayer : public Firefly::Layer
 {
@@ -92,9 +95,9 @@ public:
                 color = v_Color;
             }
         )";
-        m_Shader = std::make_shared<Firefly::Shader>(vertexSrc, fragmentSrc);
+        m_Shader.reset(Firefly::Shader::Create(vertexSrc, fragmentSrc));
 
-        std::string blueShaderVertexSrc2        = R"(
+        std::string blueShaderVertexSrc        = R"(
             #version 330 core
 
             layout(location = 0) in vec3 a_Position;
@@ -109,22 +112,22 @@ public:
                 gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
             }
         )";
-        std::string flatColorShaderFragmentSrc2 = R"(
+        std::string flatColorShaderFragmentSrc = R"(
             #version 330 core
 
             layout(location = 0) out vec4 color;
 
             in vec3 v_Position;
 
-            uniform vec4 u_Color;
+            uniform vec3 u_Color;
 
             void main()
             {
-                color = u_Color;
+                color = vec4(u_Color, 1.0);
             }
         )";
 
-        m_FlatColorShader = std::make_shared<Firefly::Shader>(blueShaderVertexSrc2, flatColorShaderFragmentSrc2);
+        m_FlatColorShader.reset(Firefly::Shader::Create(blueShaderVertexSrc, flatColorShaderFragmentSrc));
 
     }
 
@@ -154,8 +157,9 @@ public:
 
         glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 
-        glm::vec4 redColor(0.8f, 0.2f, 0.3f, 1.0f);
-        glm::vec4 blueColor(0.2f, 0.3f, 0.8f, 1.0f);
+        std::dynamic_pointer_cast<Firefly::OpenGLShader>(m_FlatColorShader)->Bind();
+        std::dynamic_pointer_cast<Firefly::OpenGLShader>(m_FlatColorShader)->UploadUniformFloat3("u_Color",
+                                                                                                 m_SquareColor);
 
         for (int y = 0; y < 20; ++y)
         {
@@ -163,10 +167,6 @@ public:
             {
                 glm::vec3 pos(x * 0.11f, y * 0.11f, 0.0f);
                 glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
-                if (x % 2 == 0)
-                    m_FlatColorShader->UploadUniformFloat4("u_Color", redColor);
-                else
-                    m_FlatColorShader->UploadUniformFloat4("u_Color", blueColor);
                 Firefly::Renderer::Submit(m_FlatColorShader, m_SquareVA, transform);
             }
         }
@@ -176,8 +176,12 @@ public:
         Firefly::Renderer::EndScene();
     }
 
-    virtual void OnImGuiRender() override
+    void OnImGuiRender() override
     {
+        ImGui::Begin("Settings");
+
+        ImGui::ColorEdit3("Square Color", glm::value_ptr(m_SquareColor));
+        ImGui::End();
     }
 
     void OnEvent(Firefly::Event& event) override
@@ -197,6 +201,8 @@ private:
     float     m_CameraMoveSpeed     = 5.0f;
     float     m_CameraRotation      = 0.0f;
     float     m_CameraRotationSpeed = 180.0f;
+
+    glm::vec3 m_SquareColor = {0.2f, 0.3f, 0.8f};
 };
 
 class Sandbox : public Firefly::Application
