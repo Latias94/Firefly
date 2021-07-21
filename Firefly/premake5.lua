@@ -1,5 +1,4 @@
 project "Firefly"
-    location "Firefly"
     kind "StaticLib"
 
     language "C++"
@@ -17,6 +16,16 @@ project "Firefly"
         "src/**.cpp",
         "%{includeDir.glm}/glm/**.hpp", -- header based library
         "%{includeDir.glm}/glm/**.inl",
+
+        -- stb
+        "vendor/stb/stb_image.h",
+        "vendor/stb/stb_image.cpp",
+
+        "vendor/stb/stb_rectpack.h",
+        "vendor/stb/stb_rectpack.cpp",
+
+        "vendor/stb/stb_sprintf.h",
+        "vendor/stb/stb_sprintf.cpp",
     }
 
     defines
@@ -32,6 +41,7 @@ project "Firefly"
         "%{includeDir.glad}",
         "%{includeDir.imgui}",
         "%{includeDir.glm}",
+        "%{includeDir.stb}",
     }
 
     links (linkLibs)

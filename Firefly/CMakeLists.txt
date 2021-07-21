@@ -8,6 +8,15 @@ set(FF_CROSS_PLATFORM_FILES
 
         ${Firefly_source_files}
         ${Firefly_header_files}
+
+        "vendor/stb/stb_image.h"
+        "vendor/stb/stb_image.cpp"
+
+        "vendor/stb/stb_rectpack.h"
+        "vendor/stb/stb_rectpack.cpp"
+
+        "vendor/stb/stb_sprintf.h"
+        "vendor/stb/stb_sprintf.cpp"
         )
 
 file(GLOB_RECURSE win32_platform_source_files "src/Platform/Windows/*.cpp")
@@ -43,6 +52,7 @@ target_include_directories(Firefly PUBLIC
         "vendor/spdlog/include"
         "vendor/imgui"
         "vendor/glm"
+        "vendor/stb"
         )
 
 target_compile_definitions(

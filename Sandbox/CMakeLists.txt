@@ -16,3 +16,10 @@ target_compile_definitions(
 )
 
 target_link_libraries(Sandbox PRIVATE Firefly)
+
+file(GLOB assets "assets/*")
+add_custom_command(
+        TARGET Sandbox
+        POST_BUILD
+        COMMAND "${CMAKE_COMMAND}" -E copy_directory "${CMAKE_SOURCE_DIR}/Sandbox/assets" $<TARGET_FILE_DIR:Sandbox>/assets
+)

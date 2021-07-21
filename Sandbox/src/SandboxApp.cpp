@@ -38,11 +38,11 @@ public:
 
         m_SquareVA.reset(Firefly::VertexArray::Create());
 
-        float squareVertices[3 * 4] = {
-                -0.5f, -0.5f, 0.0f,
-                0.5f, -0.5f, 0.0f,
-                0.5f, 0.5f, 0.0f,
-                -0.5f, 0.5f, 0.0f,
+        float squareVertices[5 * 4] = {
+                -0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
+                0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
+                0.5f, 0.5f, 0.0f, 1.0f, 1.0f,
+                -0.5f, 0.5f, 0.0f, 0.0f, 1.0f,
         };
 
         Firefly::Ref<Firefly::VertexBuffer> squareVB;
@@ -50,6 +50,7 @@ public:
 
         Firefly::BufferLayout squareVBLayout = {
                 {Firefly::ShaderDataType::Float3, "a_Position"},
+                {Firefly::ShaderDataType::Float2, "a_TexCoord"},
         };
 
         squareVB->SetLayout(squareVBLayout);
@@ -97,7 +98,7 @@ public:
         )";
         m_Shader.reset(Firefly::Shader::Create(vertexSrc, fragmentSrc));
 
-        std::string blueShaderVertexSrc        = R"(
+        std::string flatShaderVertexSrc = R"(
             #version 330 core
 
             layout(location = 0) in vec3 a_Position;
@@ -127,8 +128,46 @@ public:
             }
         )";
 
-        m_FlatColorShader.reset(Firefly::Shader::Create(blueShaderVertexSrc, flatColorShaderFragmentSrc));
+        m_FlatColorShader.reset(Firefly::Shader::Create(flatShaderVertexSrc, flatColorShaderFragmentSrc));
 
+        std::string textureShaderVertexSrc        = R"(
+            #version 330 core
+
+            layout(location = 0) in vec3 a_Position;
+            layout(location = 1) in vec2 a_TexCoord;
+
+            uniform mat4 u_ViewProjection;
+            uniform mat4 u_Transform;
+            out vec2 v_TexCoord;
+
+            void main()
+            {
+                v_TexCoord = a_TexCoord;
+                gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
+            }
+        )";
+        std::string textureColorShaderFragmentSrc = R"(
+            #version 330 core
+
+            layout(location = 0) out vec4 color;
+
+            in vec2 v_TexCoord;
+
+            uniform sampler2D u_Texture;
+
+            void main()
+            {
+                color = texture(u_Texture, v_TexCoord);
+            }
+        )";
+
+        m_TextureShader.reset(Firefly::Shader::Create(textureShaderVertexSrc, textureColorShaderFragmentSrc));
+
+        m_Texture = Firefly::Texture2D::Create("assets/textures/Checkerboard.png");
+
+        std::dynamic_pointer_cast<Firefly::OpenGLShader>(m_TextureShader)->Bind();
+        std::dynamic_pointer_cast<Firefly::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture",
+                                                                                            0); // texture slot
     }
 
     void OnUpdate(Firefly::Timestep ts) override
@@ -171,7 +210,11 @@ public:
             }
         }
 
-        Firefly::Renderer::Submit(m_Shader, m_VertexArray);
+        m_Texture->Bind();
+        Firefly::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+
+        // Triangle
+//        Firefly::Renderer::Submit(m_Shader, m_VertexArray);
 
         Firefly::Renderer::EndScene();
     }
@@ -192,8 +235,10 @@ private:
     Firefly::Ref<Firefly::Shader>      m_Shader;
     Firefly::Ref<Firefly::VertexArray> m_VertexArray;
 
-    Firefly::Ref<Firefly::Shader>      m_FlatColorShader;
+    Firefly::Ref<Firefly::Shader>      m_FlatColorShader, m_TextureShader;
     Firefly::Ref<Firefly::VertexArray> m_SquareVA;
+
+    Firefly::Ref<Firefly::Texture2D> m_Texture;
 
     Firefly::OrthographicCamera m_Camera;
 
