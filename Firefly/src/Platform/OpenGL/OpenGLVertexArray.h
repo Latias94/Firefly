@@ -13,15 +13,17 @@ namespace Firefly
         void Bind() const override;
         void Unbind() const override;
 
-        void AddVertexBuffer(const std::shared_ptr<VertexBuffer>& vertexBuffer) override;
-        void SetIndexBuffer(const std::shared_ptr<IndexBuffer>& indexBuffer) override;
+        void AddVertexBuffer(const Ref <VertexBuffer>& vertexBuffer) override;
+        void SetIndexBuffer(const Ref <IndexBuffer>& indexBuffer) override;
 
-        const std::vector<std::shared_ptr<VertexBuffer>>& GetVertexBuffers() const { return m_VertexBuffers; }
+        const std::vector<Ref < VertexBuffer>>&
 
-        const std::shared_ptr<IndexBuffer>& GetIndexBuffer() const { return m_IndexBuffer; };
+        GetVertexBuffers() const { return m_VertexBuffers; }
+
+        const Ref <IndexBuffer>& GetIndexBuffer() const { return m_IndexBuffer; };
     private:
-        std::vector<std::shared_ptr<VertexBuffer>> m_VertexBuffers;
-        std::shared_ptr<IndexBuffer>               m_IndexBuffer;
-        uint32_t                                   m_RendererID;
+        std::vector<Ref < VertexBuffer>> m_VertexBuffers;
+        Ref <IndexBuffer> m_IndexBuffer;
+        uint32_t          m_RendererID;
     };
 }

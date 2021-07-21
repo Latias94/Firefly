@@ -20,7 +20,7 @@ public:
                 0.0f, 0.5f, 0.0f, 0.8f, 0.8f, 0.2f, 1.0f,
         };
 
-        std::shared_ptr<Firefly::VertexBuffer> vertexBuffer;
+        Firefly::Ref<Firefly::VertexBuffer> vertexBuffer;
         vertexBuffer.reset(Firefly::VertexBuffer::Create(vertices, sizeof(vertices)));
         Firefly::BufferLayout layout = {
                 {Firefly::ShaderDataType::Float3, "a_Position"},
@@ -32,7 +32,7 @@ public:
 
         uint32_t indices[3] = {0, 1, 2};
 
-        std::shared_ptr<Firefly::IndexBuffer> indexBuffer;
+        Firefly::Ref<Firefly::IndexBuffer> indexBuffer;
         indexBuffer.reset(Firefly::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
         m_VertexArray->SetIndexBuffer(indexBuffer);
 
@@ -45,7 +45,7 @@ public:
                 -0.5f, 0.5f, 0.0f,
         };
 
-        std::shared_ptr<Firefly::VertexBuffer> squareVB;
+        Firefly::Ref<Firefly::VertexBuffer> squareVB;
         squareVB.reset(Firefly::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
 
         Firefly::BufferLayout squareVBLayout = {
@@ -57,7 +57,7 @@ public:
 
         uint32_t squareIndices[6] = {0, 1, 2, 2, 3, 0};
 
-        std::shared_ptr<Firefly::IndexBuffer> squareIB;
+        Firefly::Ref<Firefly::IndexBuffer> squareIB;
         squareIB.reset(Firefly::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
         m_SquareVA->SetIndexBuffer(squareIB);
 
@@ -189,11 +189,11 @@ public:
     }
 
 private:
-    std::shared_ptr<Firefly::Shader>      m_Shader;
-    std::shared_ptr<Firefly::VertexArray> m_VertexArray;
+    Firefly::Ref<Firefly::Shader>      m_Shader;
+    Firefly::Ref<Firefly::VertexArray> m_VertexArray;
 
-    std::shared_ptr<Firefly::Shader>      m_FlatColorShader;
-    std::shared_ptr<Firefly::VertexArray> m_SquareVA;
+    Firefly::Ref<Firefly::Shader>      m_FlatColorShader;
+    Firefly::Ref<Firefly::VertexArray> m_SquareVA;
 
     Firefly::OrthographicCamera m_Camera;
 
