@@ -164,6 +164,7 @@ public:
         m_TextureShader.reset(Firefly::Shader::Create(textureShaderVertexSrc, textureColorShaderFragmentSrc));
 
         m_Texture = Firefly::Texture2D::Create("assets/textures/Checkerboard.png");
+        m_SecondTexture = Firefly::Texture2D::Create("assets/textures/Juice.png");
 
         std::dynamic_pointer_cast<Firefly::OpenGLShader>(m_TextureShader)->Bind();
         std::dynamic_pointer_cast<Firefly::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture",
@@ -213,6 +214,10 @@ public:
         m_Texture->Bind();
         Firefly::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
+        m_SecondTexture->Bind();
+        Firefly::Renderer::Submit(m_TextureShader, m_SquareVA,
+                                  glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+
         // Triangle
 //        Firefly::Renderer::Submit(m_Shader, m_VertexArray);
 
@@ -239,6 +244,7 @@ private:
     Firefly::Ref<Firefly::VertexArray> m_SquareVA;
 
     Firefly::Ref<Firefly::Texture2D> m_Texture;
+    Firefly::Ref<Firefly::Texture2D> m_SecondTexture;
 
     Firefly::OrthographicCamera m_Camera;
 

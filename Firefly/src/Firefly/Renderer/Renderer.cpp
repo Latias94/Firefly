@@ -7,6 +7,11 @@ namespace Firefly
 {
     Renderer::SceneData* Renderer::m_SceneData = new Renderer::SceneData;
 
+    void Renderer::Init()
+    {
+        RenderCommand::Init();
+    }
+
     void Renderer::BeginScene(OrthographicCamera& camera)
     {
         // Take scene parameter, take shader, texture, camera, lighting and etc. store in the current scene
