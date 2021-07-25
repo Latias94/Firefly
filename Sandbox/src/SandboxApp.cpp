@@ -96,9 +96,9 @@ public:
                 color = v_Color;
             }
         )";
-        m_Shader.reset(Firefly::Shader::Create(vertexSrc, fragmentSrc));
+        m_Shader = Firefly::Shader::Create("VertexPosColorTriangle", vertexSrc, fragmentSrc);
 
-        std::string flatShaderVertexSrc = R"(
+        std::string flatShaderVertexSrc        = R"(
             #version 330 core
 
             layout(location = 0) in vec3 a_Position;
@@ -128,16 +128,16 @@ public:
             }
         )";
 
-        m_FlatColorShader.reset(Firefly::Shader::Create(flatShaderVertexSrc, flatColorShaderFragmentSrc));
+        m_FlatColorShader = Firefly::Shader::Create("FlatColor", flatShaderVertexSrc, flatColorShaderFragmentSrc);
 
-        m_TextureShader.reset(Firefly::Shader::Create("assets/shaders/Texture.glsl"));
+        auto textureShader = m_ShaderLibrary.Load("assets/shaders/Texture.glsl");
 
         m_Texture = Firefly::Texture2D::Create("assets/textures/Checkerboard.png");
         m_SecondTexture = Firefly::Texture2D::Create("assets/textures/Juice.png");
 
-        std::dynamic_pointer_cast<Firefly::OpenGLShader>(m_TextureShader)->Bind();
-        std::dynamic_pointer_cast<Firefly::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture",
-                                                                                            0); // texture slot
+        std::dynamic_pointer_cast<Firefly::OpenGLShader>(textureShader)->Bind();
+        std::dynamic_pointer_cast<Firefly::OpenGLShader>(textureShader)->UploadUniformInt("u_Texture",
+                                                                                          0); // texture slot
     }
 
     void OnUpdate(Firefly::Timestep ts) override
@@ -180,11 +180,13 @@ public:
             }
         }
 
+        auto textureShader = m_ShaderLibrary.Get("Texture");
+
         m_Texture->Bind();
-        Firefly::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+        Firefly::Renderer::Submit(textureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
         m_SecondTexture->Bind();
-        Firefly::Renderer::Submit(m_TextureShader, m_SquareVA,
+        Firefly::Renderer::Submit(textureShader, m_SquareVA,
                                   glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
         // Triangle
@@ -206,10 +208,12 @@ public:
     }
 
 private:
+    Firefly::ShaderLibrary m_ShaderLibrary;
+
     Firefly::Ref<Firefly::Shader>      m_Shader;
     Firefly::Ref<Firefly::VertexArray> m_VertexArray;
 
-    Firefly::Ref<Firefly::Shader>      m_FlatColorShader, m_TextureShader;
+    Firefly::Ref<Firefly::Shader>      m_FlatColorShader;
     Firefly::Ref<Firefly::VertexArray> m_SquareVA;
 
     Firefly::Ref<Firefly::Texture2D> m_Texture;

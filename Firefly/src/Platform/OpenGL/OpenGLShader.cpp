@@ -2,8 +2,8 @@
 #include "OpenGLShader.h"
 
 #include <fstream>
+#include <filesystem>
 #include <glad/glad.h>
-
 #include <glm/gtc/type_ptr.hpp>
 
 namespace Firefly
@@ -21,12 +21,18 @@ namespace Firefly
         std::string source        = ReadFile(filepath);
         auto        shaderSources = PreProcess(source);
         Compile(shaderSources);
+
+        // Extract name from filepath
+        // assets/shaders/Texture.glsl -> Texture
+        std::filesystem::path path = filepath;
+        m_Name = path.stem().string();
     }
 
-    OpenGLShader::OpenGLShader(const std::string& vertexSrc, const std::string& fragmentSrc)
+    OpenGLShader::OpenGLShader(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc)
+            : m_Name(name)
     {
         std::unordered_map<GLenum, std::string> sources;
-        sources[GL_VERTEX_SHADER] = vertexSrc;
+        sources[GL_VERTEX_SHADER]   = vertexSrc;
         sources[GL_FRAGMENT_SHADER] = fragmentSrc;
         Compile(sources);
     }
@@ -79,9 +85,10 @@ namespace Firefly
 
     void OpenGLShader::Compile(const std::unordered_map<GLenum, std::string>& shaderSources)
     {
-        GLuint program = glCreateProgram();
-
-        std::vector<GLuint> glShaderIDs(shaderSources.size());
+        GLuint program                        = glCreateProgram();
+        FF_CORE_ASSERT(shaderSources.size() <= 2, "We only support two shaders for now");
+        std::array<GLuint, 2> glShaderIDs{};
+        int                   glShaderIDIndex = 0;
         for (auto const&[type, source]: shaderSources)
         {
             // Create an empty shader handle
@@ -115,7 +122,7 @@ namespace Firefly
                 break;
             }
             glAttachShader(program, shader);
-            glShaderIDs.push_back(shader);
+            glShaderIDs[glShaderIDIndex++] = shader;
         }
 
         // Link our program
