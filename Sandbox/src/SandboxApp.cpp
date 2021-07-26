@@ -10,7 +10,7 @@
 class ExampleLayer : public Firefly::Layer
 {
 public:
-    ExampleLayer() : Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f), m_CameraPosition(0.0f)
+    ExampleLayer() : Layer("Example"), m_CameraController(1280.0f / 720.0f, true)
     {
         m_VertexArray.reset(Firefly::VertexArray::Create());
 
@@ -132,7 +132,7 @@ public:
 
         auto textureShader = m_ShaderLibrary.Load("assets/shaders/Texture.glsl");
 
-        m_Texture = Firefly::Texture2D::Create("assets/textures/Checkerboard.png");
+        m_Texture       = Firefly::Texture2D::Create("assets/textures/Checkerboard.png");
         m_SecondTexture = Firefly::Texture2D::Create("assets/textures/Juice.png");
 
         std::dynamic_pointer_cast<Firefly::OpenGLShader>(textureShader)->Bind();
@@ -142,27 +142,14 @@ public:
 
     void OnUpdate(Firefly::Timestep ts) override
     {
-        if (Firefly::Input::IsKeyPressed(FF_KEY_LEFT))
-            m_CameraPosition.x -= m_CameraMoveSpeed * ts;
-        else if (Firefly::Input::IsKeyPressed(FF_KEY_RIGHT))
-            m_CameraPosition.x += m_CameraMoveSpeed * ts;
-        if (Firefly::Input::IsKeyPressed(FF_KEY_DOWN))
-            m_CameraPosition.y -= m_CameraMoveSpeed * ts;
-        else if (Firefly::Input::IsKeyPressed(FF_KEY_UP))
-            m_CameraPosition.y += m_CameraMoveSpeed * ts;
+        // Update
+        m_CameraController.OnUpdate(ts);
 
-        if (Firefly::Input::IsKeyPressed(FF_KEY_A))
-            m_CameraRotation += m_CameraRotationSpeed * ts;
-        if (Firefly::Input::IsKeyPressed(FF_KEY_D))
-            m_CameraRotation -= m_CameraRotationSpeed * ts;
-
+        // Render
         Firefly::RenderCommand::SetClearColor({0.1f, 0.1f, 0.1f, 1});
         Firefly::RenderCommand::Clear();
 
-        m_Camera.SetPosition(m_CameraPosition);
-        m_Camera.SetRotation(m_CameraRotation);
-
-        Firefly::Renderer::BeginScene(m_Camera);
+        Firefly::Renderer::BeginScene(m_CameraController.GetCamera());
 
         glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 
@@ -205,6 +192,7 @@ public:
 
     void OnEvent(Firefly::Event& event) override
     {
+        m_CameraController.OnEvent(event);
     }
 
 private:
@@ -219,12 +207,7 @@ private:
     Firefly::Ref<Firefly::Texture2D> m_Texture;
     Firefly::Ref<Firefly::Texture2D> m_SecondTexture;
 
-    Firefly::OrthographicCamera m_Camera;
-
-    glm::vec3 m_CameraPosition;
-    float     m_CameraMoveSpeed     = 5.0f;
-    float     m_CameraRotation      = 0.0f;
-    float     m_CameraRotationSpeed = 180.0f;
+    Firefly::OrthographicCameraController m_CameraController;
 
     glm::vec3 m_SquareColor = {0.2f, 0.3f, 0.8f};
 };

@@ -8,6 +8,7 @@
 #include "Firefly/Input.h"
 #include "Firefly/KeyCodes.h"
 #include "Firefly/MouseButtonCodes.h"
+#include <Firefly/OrthographicCameraController.h>
 
 #include "Firefly/Core/Timestep.h"
 
