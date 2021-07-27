@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ffpch.h"
-#include "Firefly/Core.h"
+#include "Core.h"
 #include "Firefly/Events/Event.h"
 
 namespace Firefly

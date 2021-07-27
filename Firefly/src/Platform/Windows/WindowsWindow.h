@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Firefly/Window.h"
+#include "Firefly/Core/Window.h"
 #include "Firefly/Renderer/GraphicsContext.h"
 
 struct GLFWwindow;

@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-#include "Firefly/Core.h"
+#include "Firefly/Core/Core.h"
 
 namespace Firefly
 {

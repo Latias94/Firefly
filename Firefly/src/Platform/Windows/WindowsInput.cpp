@@ -1,7 +1,7 @@
 #include "ffpch.h"
 #include "WindowsInput.h"
 
-#include "Firefly/Application.h"
+#include "Firefly/Core/Application.h"
 #include <GLFW/glfw3.h>
 
 namespace Firefly

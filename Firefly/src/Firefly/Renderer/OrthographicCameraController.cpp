@@ -1,7 +1,7 @@
 #include "ffpch.h"
 #include "OrthographicCameraController.h"
-#include "Firefly/KeyCodes.h"
-#include "Firefly/Input.h"
+#include "Firefly/Core/KeyCodes.h"
+#include "Firefly/Core/Input.h"
 
 namespace Firefly
 {

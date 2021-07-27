@@ -3,7 +3,7 @@
 #include "Core.h"
 
 #include "Window.h"
-#include "Firefly/LayerStack.h"
+#include "LayerStack.h"
 #include "Firefly/Events/Event.h"
 #include "Firefly/Events/ApplicationEvent.h"
 #include "Firefly/Core/Timestep.h"

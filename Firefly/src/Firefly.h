@@ -1,14 +1,14 @@
 #pragma once
 
 // For use by Firefly applications
-#include "Firefly/Application.h"
-#include "Firefly/Layer.h"
-#include "Firefly/Log.h"
+#include "Firefly/Core/Application.h"
+#include "Firefly/Core/Layer.h"
+#include "Firefly/Core/Log.h"
 
-#include "Firefly/Input.h"
-#include "Firefly/KeyCodes.h"
-#include "Firefly/MouseButtonCodes.h"
-#include <Firefly/OrthographicCameraController.h>
+#include "Firefly/Core/Input.h"
+#include "Firefly/Core/KeyCodes.h"
+#include "Firefly/Core/MouseButtonCodes.h"
+#include <Firefly/Renderer/OrthographicCameraController.h>
 
 #include "Firefly/Core/Timestep.h"
 
@@ -30,5 +30,5 @@
 
 
 // Entry Point-------------------
-#include "Firefly/EntryPoint.h"
+#include "Firefly/Core/EntryPoint.h"
 //-------------------------------

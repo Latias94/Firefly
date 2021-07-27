@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Firefly/Core.h"
+#include "Core.h"
 #include "Firefly/Core/Timestep.h"
 #include "Firefly/Events/Event.h"
 
