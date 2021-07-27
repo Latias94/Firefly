@@ -193,6 +193,13 @@ public:
     void OnEvent(Firefly::Event& event) override
     {
         m_CameraController.OnEvent(event);
+
+        if (event.GetEventType() == Firefly::EventType::WindowResize)
+        {
+            auto& re = (Firefly::WindowResizeEvent&) event;
+//            float zoom = (float) re.GetWidth() / 1280.0f;
+//            m_CameraController.SetZoomLevel(zoom);
+        }
     }
 
 private:
