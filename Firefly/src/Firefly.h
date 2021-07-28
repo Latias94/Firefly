@@ -27,8 +27,3 @@
 
 #include "Firefly/Renderer/OrthographicCamera.h"
 //-------------------------------
-
-
-// Entry Point-------------------
-#include "Firefly/Core/EntryPoint.h"
-//-------------------------------
