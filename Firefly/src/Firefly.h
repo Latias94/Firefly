@@ -17,6 +17,7 @@
 // Renderer ---------------------
 
 #include "Firefly/Renderer/Renderer.h"
+#include "Firefly/Renderer/Renderer2D.h"
 #include "Firefly/Renderer/RenderCommand.h"
 #include "Firefly/Renderer/RendererAPI.h"
 
