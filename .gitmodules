@@ -4,9 +4,11 @@
 [submodule "Firefly/vendor/GLFW"]
 	path = Firefly/vendor/GLFW
 	url = https://github.com/glfw/glfw
+	ignore = dirty
 [submodule "Firefly/vendor/imgui"]
 	path = Firefly/vendor/imgui
 	url = https://github.com/ocornut/imgui
+	ignore = dirty
 [submodule "Firefly/vendor/glm"]
 	path = Firefly/vendor/glm
 	url = https://github.com/g-truc/glm

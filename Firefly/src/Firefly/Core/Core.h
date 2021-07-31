@@ -3,17 +3,17 @@
 #include <memory>
 
 #ifdef FF_PLATFORM_WINDOWS
-	#ifdef FF_DYNAMIC_LINK
-		#ifdef FF_BUILD_DLL
-			#define FIREFLY_API __declspec(dllexport)
-		#else
-			#define FIREFLY_API __declspec(dllimport)
-		#endif
-	#else
-		#define FIREFLY_API
-	#endif
+    #ifdef FF_DYNAMIC_LINK
+        #ifdef FF_BUILD_DLL
+            #define FIREFLY_API __declspec(dllexport)
+        #else
+            #define FIREFLY_API __declspec(dllimport)
+        #endif
+    #else
+        #define FIREFLY_API
+    #endif
 #else
-	#error Firefly only support Windows
+    #error Firefly only support Windows
 #endif
 
 #ifdef FF_DEBUG
@@ -37,7 +37,17 @@ namespace Firefly
     template<typename T>
     using Scope = std::unique_ptr<T>;
 
+    template<typename T, typename ... Args>
+    constexpr Scope<T> CreateScope(Args&& ... args)
+    {
+        return std::make_unique<T>(std::forward<Args>(args)...);
+    }
+
     template<typename T>
     using Ref = std::shared_ptr<T>;
-
+    template<typename T, typename ... Args>
+    constexpr Ref<T> CreateRef(Args&& ... args)
+    {
+        return std::make_shared<T>(std::forward<Args>(args)...);
+    }
 }
