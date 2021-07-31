@@ -134,8 +134,8 @@ void ExampleLayer::OnAttach()
     m_Texture       = Firefly::Texture2D::Create("assets/textures/Checkerboard.png");
     m_SecondTexture = Firefly::Texture2D::Create("assets/textures/Juice.png");
 
-    std::dynamic_pointer_cast<Firefly::OpenGLShader>(textureShader)->Bind();
-    std::dynamic_pointer_cast<Firefly::OpenGLShader>(textureShader)->UploadUniformInt("u_Texture",0); // texture slot
+    textureShader->Bind();
+    textureShader->SetInt("u_Texture", 0); // texture slot
 }
 
 void ExampleLayer::OnDetach()
