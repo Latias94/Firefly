@@ -88,10 +88,4 @@ namespace Firefly
             glfwMakeContextCurrent(backup_current_context);
         }
     }
-
-    void ImGuiLayer::OnImGuiRender()
-    {
-        static bool show = true;
-        ImGui::ShowDemoWindow(&show);
-    }
 }
