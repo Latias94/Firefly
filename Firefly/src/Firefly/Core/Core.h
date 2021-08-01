@@ -30,6 +30,9 @@
 
 #define BIT(x) (1 << x)
 
+#define CONCAT(a,b) a b
+#define PASTE(a,b) a##b
+
 #define FF_BIND_EVENT_FN(fn) std::bind(&fn, this, std::placeholders::_1)
 
 namespace Firefly

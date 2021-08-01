@@ -14,6 +14,7 @@
 #include <unordered_set>
 
 #include "Firefly/Core/Log.h"
+#include "Firefly/Debug/Instrumentor.h"
 
 #ifdef FF_PLATFORM_WINDOWS
     #include <Windows.h>
