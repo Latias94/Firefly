@@ -6,7 +6,8 @@
 
 namespace Firefly
 {
-    Input* Input::s_Instance = new WindowInput();
+    Scope <Input> Input::s_Instance = CreateScope<WindowInput>();
+
     bool WindowInput::IsKeyPressedImpl(int keycode)
     {
         auto window = static_cast<GLFWwindow*> (Application::Get().GetWindow().GetNativeWindow());

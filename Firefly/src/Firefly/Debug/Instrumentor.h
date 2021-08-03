@@ -133,7 +133,7 @@ namespace Firefly
     #define FF_PROFILE_BEGIN_SESSION(name, filepath) ::Firefly::Instrumentor::Get().BeginSession(name, filepath)
     #define FF_PROFILE_END_SESSION() ::Firefly::Instrumentor::Get().EndSession()
 // timer+lineNum
-    #define FF_PROFILE_SCOPE(name) ::Firefly::InstrumentationTimer CONCAT(PASTE,(timer,__LINE__))(name)
+    #define FF_PROFILE_SCOPE(name) ::Firefly::InstrumentationTimer TOKENPASTE2(timer, __LINE__)(name)
     #define FF_PROFILE_FUNCTION() FF_PROFILE_SCOPE(__FUNCSIG__)
 #else
     #define FF_PROFILE_BEGIN_SESSION(name, filepath)

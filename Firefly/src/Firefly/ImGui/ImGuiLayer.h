@@ -11,7 +11,7 @@ namespace Firefly
     {
     public:
         ImGuiLayer();
-        ~ImGuiLayer();
+        ~ImGuiLayer() = default;
 
         virtual void OnDetach() override;
         virtual void OnAttach() override;

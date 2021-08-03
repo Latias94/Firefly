@@ -7,6 +7,4 @@ namespace Firefly
     {
 
     }
-
-    Layer::~Layer() {};
 }

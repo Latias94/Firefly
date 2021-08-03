@@ -10,7 +10,7 @@ namespace Firefly
     class WindowsWindow : public Window
     {
     public:
-        WindowsWindow(const WindowProps &props);
+        WindowsWindow(const WindowProps& props);
 
         virtual ~WindowsWindow();
         virtual void OnUpdate() override;
@@ -19,7 +19,7 @@ namespace Firefly
 
         inline virtual uint32_t GetHeight() const override { return m_Data.Height; }
 
-        inline void SetEventCallback(const EventCallbackFn &callback) override
+        inline void SetEventCallback(const EventCallbackFn& callback) override
         {
             m_Data.EventCallback = callback;
         };
@@ -30,12 +30,12 @@ namespace Firefly
         inline virtual void* GetNativeWindow() const override { return m_Window; }
 
     private:
-        virtual void Init(const WindowProps &props);
+        virtual void Init(const WindowProps& props);
         virtual void Shutdown();
 
     private:
-        GLFWwindow *m_Window;
-        GraphicsContext* m_Context;
+        GLFWwindow              * m_Window;
+        Scope <GraphicsContext> m_Context;
 
         struct WindowData
         {

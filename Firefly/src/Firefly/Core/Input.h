@@ -6,6 +6,11 @@ namespace Firefly
 {
     class FIREFLY_API Input
     {
+    protected:
+        Input() = default;
+    public:
+        Input(const Input&) = delete;
+        Input& operator=(const Input&) = delete;
     public:
         inline static bool IsKeyPressed(int keycode) { return s_Instance->IsKeyPressedImpl(keycode); }
 
@@ -25,6 +30,6 @@ namespace Firefly
         virtual float GetMouseYImpl() = 0;
 
     private:
-        static Input* s_Instance;
+        static Scope <Input> s_Instance;
     };
 }

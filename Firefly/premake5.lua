@@ -53,8 +53,6 @@ project "Firefly"
         defines
         {
             "FF_BUILD_DLL",
-            "FF_PLATFORM_WINDOWS",
-            "_WIN32"
         }
 
     filter "system:linux" --not working

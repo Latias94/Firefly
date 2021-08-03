@@ -72,13 +72,12 @@ namespace Firefly
             FF_CORE_ASSERT(eol != std::string::npos, "Syntax error");
             size_t      begin = pos + typeTokenLength + 1;
             std::string type  = source.substr(begin, eol - begin);
-            FF_CORE_ASSERT(type == "vertex" || type == "fragment" || type == "pixel", "Invalid shader type specified");
+            FF_CORE_ASSERT(ShaderTypeFromString(type), "Invalid shader type specified");
 
             size_t nextLinePos = source.find_first_not_of("\r\n", eol);
-            pos = source.find(typeToken, nextLinePos);
-            shaderSources[ShaderTypeFromString(type)] =
-                    source.substr(nextLinePos,
-                                  pos - (nextLinePos == std::string::npos ? source.size() - 1 : nextLinePos));
+            FF_CORE_ASSERT(nextLinePos != std::string::npos, "Syntax error");
+            pos = source.find(typeToken, nextLinePos); //Start of next shader type declaration line
+            shaderSources[ShaderTypeFromString(type)] = (pos == std::string::npos) ? source.substr(nextLinePos) : source.substr(nextLinePos, pos - nextLinePos);
         }
         return shaderSources;
     }
@@ -160,6 +159,7 @@ namespace Firefly
         {
             // Always detach shaders after a successful link.
             glDetachShader(program, id);
+            glDeleteShader(id);
         }
 
         m_RendererID = program;

@@ -21,11 +21,6 @@ project "Sandbox"
         staticruntime (staticRuntime)
         systemversion "latest"
 
-        defines
-        {
-            "FF_PLATFORM_WINDOWS",
-        }
-
     filter "system:linux" --not working
 		pic "on"
 		systemversion "latest"

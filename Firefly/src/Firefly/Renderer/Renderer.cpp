@@ -6,7 +6,7 @@
 
 namespace Firefly
 {
-    Renderer::SceneData* Renderer::m_SceneData = new Renderer::SceneData;
+    Scope <Renderer::SceneData> Renderer::s_SceneData = CreateScope<Renderer::SceneData>();
 
     void Renderer::Init()
     {
@@ -23,7 +23,7 @@ namespace Firefly
     {
         // Take scene parameter, take shader, texture, camera, lighting and etc. store in the current scene
         // and wait for uploading.
-        m_SceneData->ViewProjectionMatrix = camera.GetViewProjectionMatrix();
+        s_SceneData->ViewProjectionMatrix = camera.GetViewProjectionMatrix();
     }
 
     void Renderer::EndScene()
@@ -36,7 +36,7 @@ namespace Firefly
     {
         shader->Bind();
         std::dynamic_pointer_cast<OpenGLShader>(shader)->UploadUniformMat4("u_ViewProjection",
-                                                                           m_SceneData->ViewProjectionMatrix);
+                                                                           s_SceneData->ViewProjectionMatrix);
         std::dynamic_pointer_cast<OpenGLShader>(shader)->UploadUniformMat4("u_Transform", transform);
         vertexArray->Bind();
         RenderCommand::DrawIndexed(vertexArray);

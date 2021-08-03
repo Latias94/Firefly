@@ -44,32 +44,31 @@ namespace Firefly
         glBindVertexArray(0);
     }
 
-    void OpenGLVertexArray::AddVertexBuffer(const Ref<VertexBuffer>& vertexBuffer)
+    void OpenGLVertexArray::AddVertexBuffer(const Ref <VertexBuffer>& vertexBuffer)
     {
         FF_CORE_ASSERT(vertexBuffer->GetLayout().GetElements().size(), "Vertex Buffer has no layout");
         glBindVertexArray(m_RendererID);
         vertexBuffer->Bind();
 
-        uint32_t index = 0;
         const auto& layout = vertexBuffer->GetLayout();
 
         for (const auto& element: layout)
         {
-            glEnableVertexAttribArray(index);
+            glEnableVertexAttribArray(m_VertexBufferIndex);
             glVertexAttribPointer(
-                    index,
+                    m_VertexBufferIndex,
                     element.GetComponentCount(),
                     ShaderDataTypeToOpenGLBaseType(element.Type),
                     element.Normalized ? GL_FALSE : GL_TRUE,
                     layout.GetStride(),
                     (const void*) element.Offset
             );
-            index++;
+            m_VertexBufferIndex++;
         }
         m_VertexBuffers.push_back(vertexBuffer);
     }
 
-    void OpenGLVertexArray::SetIndexBuffer(const Ref<IndexBuffer>& indexBuffer)
+    void OpenGLVertexArray::SetIndexBuffer(const Ref <IndexBuffer>& indexBuffer)
     {
         glBindVertexArray(m_RendererID);
         indexBuffer->Bind();

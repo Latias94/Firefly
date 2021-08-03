@@ -3,7 +3,7 @@
 #include "Renderer.h"
 #include "Platform/OpenGL/OpenGLBuffer.h"
 
-#if FF_PLATFORM_WINDOWS
+#ifdef FF_PLATFORM_WINDOWS
 //#include "Platform/Direct3D/Direct3DBuffer.h"
 #endif
 

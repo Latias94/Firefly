@@ -2,6 +2,7 @@
 **/bin/
 bin-int/
 
+# CMake
 cmake-build-*/
 
 # Firefly files
@@ -12,8 +13,13 @@ cmake-build-*/
 .vscode/
 .idea/
 
+# Profile data
+**/FireflyProfile-*.json
+
+# IMGUI runtime settings
 **/imgui.ini
 
+# VS project setting files, should be generate by premake with generateProject.bat script.
 **.sln
 **.vcxproj
 **.vcxproj.filters

@@ -28,7 +28,7 @@ namespace Firefly
     public:
         using EventCallbackFn = std::function<void(Event&)>;
 
-        virtual ~Window() {}
+        virtual ~Window() = default;
 
         virtual void OnUpdate() = 0;
         virtual uint32_t GetWidth() const = 0;
@@ -40,6 +40,6 @@ namespace Firefly
         // for client usage
         virtual void* GetNativeWindow() const = 0;
 
-        static Window* Create(const WindowProps& props = WindowProps());
+        static Scope <Window> Create(const WindowProps& props = WindowProps());
     };
 }
