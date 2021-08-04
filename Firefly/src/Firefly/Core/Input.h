@@ -1,10 +1,10 @@
 #pragma once
 
-#include "Core.h"
+#include "Firefly/Core/Core.h"
 
 namespace Firefly
 {
-    class FIREFLY_API Input
+    class Input
     {
     protected:
         Input() = default;

@@ -1,5 +1,5 @@
 #include "ffpch.h"
-#include "WindowsInput.h"
+#include "Platform/Windows/WindowsInput.h"
 
 #include "Firefly/Core/Application.h"
 #include <GLFW/glfw3.h>

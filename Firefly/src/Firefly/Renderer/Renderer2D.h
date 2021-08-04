@@ -1,7 +1,7 @@
 #pragma once
 
-#include "OrthographicCamera.h"
-#include "Texture.h"
+#include "Firefly/Renderer/OrthographicCamera.h"
+#include "Firefly/Renderer/Texture.h"
 
 namespace Firefly
 {

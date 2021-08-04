@@ -1,12 +1,14 @@
 #include "ffpch.h"
-#include "OpenGLTexture.h"
+#include "Platform/OpenGL/OpenGLTexture.h"
 
-#include "stb_image.h"
+#include <stb_image.h>
 
 namespace Firefly
 {
     OpenGLTexture2D::OpenGLTexture2D(uint32_t width, uint32_t height) : m_Width(width), m_Height(height)
     {
+        FF_PROFILE_FUNCTION();
+
         GLenum internalFormat = GL_RGBA8, dataFormat = GL_RGBA;
         m_InternalFormat = internalFormat;
         m_DataFormat     = dataFormat;
@@ -22,10 +24,17 @@ namespace Firefly
 
     OpenGLTexture2D::OpenGLTexture2D(const std::string& path) : m_Path(path)
     {
+        FF_PROFILE_FUNCTION();
+
         int width, height, channels;
         // https://stackoverflow.com/questions/19770296/should-i-vertically-flip-the-lines-of-an-image-loaded-with-stb-image-to-use-in-o
         stbi_set_flip_vertically_on_load(1);
-        stbi_uc* data = stbi_load(path.c_str(), &width, &height, &channels, 0);
+        stbi_uc* data = nullptr;
+        {
+            FF_PROFILE_SCOPE("stbi_load - OpenGLTexture2D::OpenGLTexture2D(const std::string&)");
+            data = stbi_load(path.c_str(), &width, &height, &channels, 0);
+        }
+
         FF_CORE_ASSERT(data, "Failed to load image!");
         m_Width  = width;
         m_Height = height;
@@ -61,11 +70,15 @@ namespace Firefly
 
     OpenGLTexture2D::~OpenGLTexture2D()
     {
+        FF_PROFILE_FUNCTION();
+
         glDeleteTextures(1, &m_RendererID);
     }
 
     void OpenGLTexture2D::SetData(void* data, uint32_t size)
     {
+        FF_PROFILE_FUNCTION();
+
         uint32_t bpp = m_DataFormat == GL_RGBA ? 4 : 3;
         // The buffer has to be the size of entire texture
         FF_CORE_ASSERT(size == m_Width * m_Height * bpp, "Data must be entire texture!");
@@ -74,6 +87,8 @@ namespace Firefly
 
     void OpenGLTexture2D::Bind(uint32_t slot) const
     {
+        FF_PROFILE_FUNCTION();
+
         glBindTextureUnit(slot, m_RendererID);
     }
 }

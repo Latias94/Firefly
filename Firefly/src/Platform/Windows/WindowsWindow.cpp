@@ -1,5 +1,5 @@
 #include "ffpch.h"
-#include "WindowsWindow.h"
+#include "Platform/Windows/WindowsWindow.h"
 
 #include "Firefly/Events/ApplicationEvent.h"
 #include "Firefly/Events/MouseEvent.h"
@@ -23,16 +23,22 @@ namespace Firefly
 
     WindowsWindow::WindowsWindow(const WindowProps& props)
     {
+        FF_PROFILE_FUNCTION();
+
         Init(props);
     }
 
     WindowsWindow::~WindowsWindow()
     {
+        FF_PROFILE_FUNCTION();
+
         Shutdown();
     }
 
     void WindowsWindow::Init(const WindowProps& props)
     {
+        FF_PROFILE_FUNCTION();
+
         m_Data.Title  = props.Title;
         m_Data.Width  = props.Width;
         m_Data.Height = props.Height;
@@ -41,7 +47,6 @@ namespace Firefly
 
         if (s_GLFWWindowCount == 0)
         {
-            FF_CORE_INFO("Initializing GLFW");
             int success = glfwInit();
             FF_ASSERT(success, "Could not initialize GLFW!");
 
@@ -51,7 +56,7 @@ namespace Firefly
         m_Window = glfwCreateWindow(props.Width, props.Height, m_Data.Title.c_str(), nullptr, nullptr);
         s_GLFWWindowCount++;
 
-        m_Context = CreateScope<OpenGLContext>(m_Window);
+        m_Context = GraphicsContext::Create(m_Window);
         m_Context->Init();
 
         glfwSetWindowUserPointer(m_Window, &m_Data);
@@ -148,23 +153,29 @@ namespace Firefly
 
     void WindowsWindow::Shutdown()
     {
+        FF_PROFILE_FUNCTION();
+
         glfwDestroyWindow(m_Window);
 
-        if (--s_GLFWWindowCount == 0)
+        --s_GLFWWindowCount;
+        if (s_GLFWWindowCount == 0)
         {
-            FF_CORE_INFO("Terminating GLFW");
             glfwTerminate();
         }
     }
 
     void WindowsWindow::OnUpdate()
     {
+        FF_PROFILE_FUNCTION();
+
         glfwPollEvents();
         m_Context->SwapBuffers();
     }
 
     void WindowsWindow::SetVSync(bool enabled)
     {
+        FF_PROFILE_FUNCTION();
+
         if (enabled)
             glfwSwapInterval(1);
         else

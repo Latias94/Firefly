@@ -1,12 +1,15 @@
 #include "ffpch.h"
-#include "OpenGLRendererAPI.h"
+#include "Platform/OpenGL/OpenGLRendererAPI.h"
 
 #include <glad/glad.h>
 
 namespace Firefly
 {
+    #define FF_PROFILE_RENDERER_FUNCTION()
     void OpenGLRendererAPI::Init()
     {
+        FF_PROFILE_FUNCTION();
+
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         glEnable(GL_DEPTH_TEST);

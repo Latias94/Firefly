@@ -1,6 +1,6 @@
 #include "ffpch.h"
-#include "VertexArray.h"
-#include "Renderer.h"
+#include "Firefly/Renderer/VertexArray.h"
+#include "Firefly/Renderer/Renderer.h"
 #include "Platform/OpenGL/OpenGLVertexArray.h"
 
 namespace Firefly
@@ -12,7 +12,7 @@ namespace Firefly
             case RendererAPI::API::None:
             FF_CORE_ASSERT(false, "RendererAPI::None is currently not supported!")
                 return nullptr;
-            case RendererAPI::API::OpenGL:return std::make_shared<OpenGLVertexArray>();
+            case RendererAPI::API::OpenGL:return CreateRef<OpenGLVertexArray>();
         }
         FF_CORE_ASSERT(false, "Unknown RendererAPI!")
 

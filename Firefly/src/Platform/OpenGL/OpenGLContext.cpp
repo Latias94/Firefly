@@ -1,6 +1,6 @@
 #include "ffpch.h"
 #include "glad/glad.h" // include before glfw.h in WindowsWindow.h
-#include "OpenGLContext.h"
+#include "Platform/OpenGL/OpenGLContext.h"
 
 namespace Firefly
 {
@@ -11,6 +11,8 @@ namespace Firefly
 
     void OpenGLContext::Init()
     {
+        FF_PROFILE_FUNCTION();
+
         glfwMakeContextCurrent(m_WindowHandle);
         int status = gladLoadGLLoader((GLADloadproc) glfwGetProcAddress); // Load glad
         FF_CORE_ASSERT(status, "Failed to initialize glad!");
@@ -23,6 +25,8 @@ namespace Firefly
 
     void OpenGLContext::SwapBuffers()
     {
+        FF_PROFILE_FUNCTION();
+
         glfwSwapBuffers(m_WindowHandle);
     }
 }

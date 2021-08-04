@@ -11,21 +11,21 @@ Sandbox2D::Sandbox2D() : Layer("Sandbox2D"), m_CameraController(1280.0f / 720.0f
 
 void Sandbox2D::OnAttach()
 {
+    FF_PROFILE_FUNCTION();
+
     m_CheckerboardTexture = Firefly::Texture2D::Create("assets/textures/Checkerboard.png");
 }
 
 void Sandbox2D::OnDetach()
 {
+    FF_PROFILE_FUNCTION();
 }
 
 void Sandbox2D::OnUpdate(Firefly::Timestep ts)
 {
     FF_PROFILE_FUNCTION();
 
-    {
-        FF_PROFILE_SCOPE("CameraController::OnUpdate");
-        m_CameraController.OnUpdate(ts);
-    }
+    m_CameraController.OnUpdate(ts);
 
     // Render
     {

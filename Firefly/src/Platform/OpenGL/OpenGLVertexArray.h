@@ -24,7 +24,7 @@ namespace Firefly
     private:
         std::vector<Ref < VertexBuffer>> m_VertexBuffers;
         Ref <IndexBuffer> m_IndexBuffer;
-        uint32_t m_RendererID;
-        uint32_t m_VertexBufferIndex = 0;
+        uint32_t          m_RendererID;
+        uint32_t          m_VertexBufferIndex = 0;
     };
 }

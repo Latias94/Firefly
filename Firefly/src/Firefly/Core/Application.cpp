@@ -1,9 +1,7 @@
 #include "ffpch.h"
-#include "Application.h"
-
+#include "Firefly/Core/Application.h"
+#include "Firefly/Core/Input.h"
 #include "Firefly/Renderer/Renderer.h"
-
-#include "Input.h"
 #include <GLFW/glfw3.h>
 
 namespace Firefly
@@ -26,18 +24,33 @@ namespace Firefly
         PushOverlay(m_ImGuiLayer);
     }
 
-    void Application::PushLayer(Layer * layer)
+    Application::~Application()
     {
-        m_LayerStack.PushLayer(layer);
+        FF_PROFILE_FUNCTION();
+
+        Renderer::Shutdown();
     }
 
-    void Application::PushOverlay(Layer * layer)
+    void Application::PushLayer(Layer* layer)
     {
+        FF_PROFILE_FUNCTION();
+
+        m_LayerStack.PushLayer(layer);
+        layer->OnAttach();
+    }
+
+    void Application::PushOverlay(Layer* layer)
+    {
+        FF_PROFILE_FUNCTION();
+
         m_LayerStack.PushOverlay(layer);
+        layer->OnAttach();
     }
 
     void Application::OnEvent(Event& e)
     {
+        FF_PROFILE_FUNCTION();
+
         EventDispatcher dispatcher(e);
         // if event type is close event, call OnWindowClose
         dispatcher.Dispatch<WindowCloseEvent>(FF_BIND_EVENT_FN(Application::OnWindowClose));
@@ -57,8 +70,12 @@ namespace Firefly
 
     void Application::Run()
     {
+        FF_PROFILE_FUNCTION();
+
         while (m_Running)
         {
+            FF_PROFILE_SCOPE("RunLoop");
+
             float time = (float) glfwGetTime(); // will be replace with different Platform's Platform::GetTime
 
             Timestep timestep = time - m_LastFrameTime;
@@ -66,14 +83,22 @@ namespace Firefly
 
             if (!m_Minimized)
             {
-                for (Layer* layer: m_LayerStack)
-                    layer->OnUpdate(timestep);
-            }
+                {
+                    FF_PROFILE_SCOPE("LayerStack OnUpdate");
 
-            m_ImGuiLayer->Begin();
-            for (Layer* layer : m_LayerStack)
-                layer->OnImGuiRender();
-            m_ImGuiLayer->End();
+                    for (Layer* layer: m_LayerStack)
+                        layer->OnUpdate(timestep);
+                }
+
+                m_ImGuiLayer->Begin();
+                {
+                    FF_PROFILE_SCOPE("LayerStack OnImGuiUpdate");
+
+                    for (Layer* layer : m_LayerStack)
+                        layer->OnImGuiRender();
+                }
+                m_ImGuiLayer->End();
+            }
 
             m_Window->OnUpdate();
         }
@@ -87,6 +112,8 @@ namespace Firefly
 
     bool Application::OnWindowResize(WindowResizeEvent& e)
     {
+        FF_PROFILE_FUNCTION();
+
         if (e.GetWidth() == 0 || e.GetHeight() == 0)
         {
             m_Minimized = true;

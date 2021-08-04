@@ -1,8 +1,8 @@
 #pragma once
 
-#include "RenderCommand.h"
-#include "OrthographicCamera.h"
-#include "Shader.h"
+#include "Firefly/Renderer/RenderCommand.h"
+#include "Firefly/Renderer/OrthographicCamera.h"
+#include "Firefly/Renderer/Shader.h"
 
 namespace Firefly
 {
@@ -10,12 +10,14 @@ namespace Firefly
     {
     public:
         static void Init();
+        static void Shutdown();
+
         static void OnWindowResize(uint32_t width, uint32_t height);
 
         static void BeginScene(OrthographicCamera& camera);
         static void EndScene();
 
-        static void Submit(Ref <Shader>& shader, const Ref <VertexArray>& vertexArray,
+        static void Submit(Ref<Shader>& shader, const Ref<VertexArray>& vertexArray,
                            const glm::mat4& transform = glm::mat4(1.0f));
 
         inline static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }

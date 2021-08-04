@@ -1,8 +1,10 @@
 #pragma once
 
-extern Firefly::Application *Firefly::CreateApplication();
+#include "Firefly/Core/Core.h"
 
-int main(int argc, char **argv)
+extern Firefly::Application* Firefly::CreateApplication();
+
+int main(int argc, char** argv)
 {
     Firefly::Log::Init();
 

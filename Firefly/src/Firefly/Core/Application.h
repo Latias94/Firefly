@@ -1,9 +1,8 @@
 #pragma once
 
-#include "Core.h"
-
-#include "Window.h"
-#include "LayerStack.h"
+#include "Firefly/Core/Core.h"
+#include "Firefly/Core/Window.h"
+#include "Firefly/Core/LayerStack.h"
 #include "Firefly/Events/Event.h"
 #include "Firefly/Events/ApplicationEvent.h"
 #include "Firefly/Core/Timestep.h"
@@ -17,7 +16,7 @@ namespace Firefly
     public:
         Application();
 
-        virtual ~Application() = default;
+        virtual ~Application();
 
         void Run();
 

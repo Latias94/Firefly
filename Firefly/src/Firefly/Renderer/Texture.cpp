@@ -1,12 +1,10 @@
 #include "ffpch.h"
-#include "Texture.h"
-
-#include "Renderer.h"
+#include "Firefly/Renderer/Texture.h"
+#include "Firefly/Renderer/Renderer.h"
 #include "Platform/OpenGL/OpenGLTexture.h"
 
 namespace Firefly
 {
-
     Ref <Texture2D> Texture2D::Create(uint32_t width, uint32_t height)
     {
         switch (Renderer::GetAPI())

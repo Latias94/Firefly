@@ -1,10 +1,10 @@
 #pragma once
 
-#include "Event.h"
+#include "Firefly/Events/Event.h"
 
 namespace Firefly
 {
-    class FIREFLY_API KeyEvent : public Event
+    class KeyEvent : public Event
     {
     public:
         inline int GetKeyCode() const { return m_KeyCode; }
@@ -17,7 +17,7 @@ namespace Firefly
         int m_KeyCode;
     };
 
-    class FIREFLY_API KeyPressedEvent : public KeyEvent
+    class KeyPressedEvent : public KeyEvent
     {
     public:
         KeyPressedEvent(int keycode, int repeatCount) : KeyEvent(keycode), m_RepeatCount(repeatCount) {}
@@ -37,7 +37,7 @@ namespace Firefly
         int m_RepeatCount;
     };
 
-    class FIREFLY_API KeyReleasedEvent : public KeyEvent
+    class KeyReleasedEvent : public KeyEvent
     {
     public:
 
@@ -53,7 +53,7 @@ namespace Firefly
         EVENT_CLASS_TYPE(KeyReleased)
     };
 
-    class FIREFLY_API KeyTypedEvent : public KeyEvent
+    class KeyTypedEvent : public KeyEvent
     {
     public:
         KeyTypedEvent(int keycode) : KeyEvent(keycode) {}

@@ -1,8 +1,9 @@
 #include "ffpch.h"
-#include "Renderer2D.h"
-#include "VertexArray.h"
-#include "Shader.h"
-#include "RenderCommand.h"
+#include "Firefly/Renderer/Renderer2D.h"
+#include "Firefly/Renderer/VertexArray.h"
+#include "Firefly/Renderer/Shader.h"
+#include "Firefly/Renderer/RenderCommand.h"
+
 #include <Platform/OpenGL/OpenGLShader.h>
 #include <glm/gtc/matrix_transform.hpp>
 
@@ -19,6 +20,8 @@ namespace Firefly
 
     void Renderer2D::Init()
     {
+        FF_PROFILE_FUNCTION();
+
         s_Data = new Renderer2DStorage();
         s_Data->QuadVertexArray = VertexArray::Create();
 
@@ -29,8 +32,7 @@ namespace Firefly
                 -0.5f, 0.5f, 0.0f, 0.0f, 1.0f,
         };
 
-        Ref <VertexBuffer> squareVB;
-        squareVB.reset(VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
+        Ref <VertexBuffer> squareVB = VertexBuffer::Create(squareVertices, sizeof(squareVertices));
 
         BufferLayout squareVBLayout = {
                 {ShaderDataType::Float3, "a_Position"},
@@ -41,9 +43,7 @@ namespace Firefly
         s_Data->QuadVertexArray->AddVertexBuffer(squareVB);
 
         uint32_t squareIndices[6] = {0, 1, 2, 2, 3, 0};
-
-        Ref <IndexBuffer> squareIB;
-        squareIB.reset(IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
+        Ref <IndexBuffer> squareIB = IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t));
         s_Data->QuadVertexArray->SetIndexBuffer(squareIB);
 
         // using the old white texture trick, create 1 pixel texture to combine FlatColorShader and TextureShader
@@ -58,11 +58,15 @@ namespace Firefly
 
     void Renderer2D::Shutdown()
     {
+        FF_PROFILE_FUNCTION();
+
         delete s_Data;
     }
 
     void Renderer2D::BeginScene(const OrthographicCamera& camera)
     {
+        FF_PROFILE_FUNCTION();
+
         s_Data->TextureShader->Bind();
         s_Data->TextureShader->SetMat4("u_ViewProjection",
                                        camera.GetViewProjectionMatrix());
@@ -70,7 +74,7 @@ namespace Firefly
 
     void Renderer2D::EndScene()
     {
-
+        FF_PROFILE_FUNCTION();
     }
 
     void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, const glm::vec4& color)
@@ -80,6 +84,8 @@ namespace Firefly
 
     void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color)
     {
+        FF_PROFILE_FUNCTION();
+
         s_Data->TextureShader->SetFloat4("u_Color", color);
         //Bind white texture here
         s_Data->WhiteTexture->Bind();
@@ -97,6 +103,8 @@ namespace Firefly
 
     void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const Ref <Texture2D>& texture)
     {
+        FF_PROFILE_FUNCTION();
+
         s_Data->TextureShader->SetFloat4("u_Color", glm::vec4(1.0f));
         texture->Bind(0);
 

@@ -1,15 +1,15 @@
 #pragma once
 
-#include "Core.h"
-#include "Layer.h"
+#include "Firefly/Core/Core.h"
+#include "Firefly/Core/Layer.h"
 #include <vector>
 
 namespace Firefly
 {
-    class FIREFLY_API LayerStack
+    class LayerStack
     {
     public:
-        LayerStack();
+        LayerStack() = default;
         ~LayerStack();
 
         void PushLayer(Layer* layer);

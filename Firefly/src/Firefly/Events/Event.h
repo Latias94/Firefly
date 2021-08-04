@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ffpch.h"
+#include "Firefly/Core/Core.h"
 
 namespace Firefly
 {
@@ -35,7 +36,7 @@ namespace Firefly
 
 #define EVENT_CLASS_CATEGORY(category) virtual int GetCategoryFlags() const override { return category; }
 
-    class FIREFLY_API Event
+    class Event
     {
         friend class EventDispatcher;
 

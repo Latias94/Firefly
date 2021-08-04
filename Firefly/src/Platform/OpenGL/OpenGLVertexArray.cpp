@@ -1,5 +1,5 @@
 #include "ffpch.h"
-#include "OpenGLVertexArray.h"
+#include "Platform/OpenGL/OpenGLVertexArray.h"
 #include <glad/glad.h>
 
 namespace Firefly
@@ -26,26 +26,36 @@ namespace Firefly
 
     OpenGLVertexArray::OpenGLVertexArray()
     {
+        FF_PROFILE_FUNCTION();
+
         glCreateVertexArrays(1, &m_RendererID);
     }
 
     OpenGLVertexArray::~OpenGLVertexArray()
     {
+        FF_PROFILE_FUNCTION();
+
         glDeleteVertexArrays(1, &m_RendererID);
     }
 
     void OpenGLVertexArray::Bind() const
     {
+        FF_PROFILE_FUNCTION();
+
         glBindVertexArray(m_RendererID);
     }
 
     void OpenGLVertexArray::Unbind() const
     {
+        FF_PROFILE_FUNCTION();
+
         glBindVertexArray(0);
     }
 
     void OpenGLVertexArray::AddVertexBuffer(const Ref <VertexBuffer>& vertexBuffer)
     {
+        FF_PROFILE_FUNCTION();
+
         FF_CORE_ASSERT(vertexBuffer->GetLayout().GetElements().size(), "Vertex Buffer has no layout");
         glBindVertexArray(m_RendererID);
         vertexBuffer->Bind();
@@ -70,6 +80,8 @@ namespace Firefly
 
     void OpenGLVertexArray::SetIndexBuffer(const Ref <IndexBuffer>& indexBuffer)
     {
+        FF_PROFILE_FUNCTION();
+
         glBindVertexArray(m_RendererID);
         indexBuffer->Bind();
         m_IndexBuffer = indexBuffer;

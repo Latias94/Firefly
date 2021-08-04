@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ffpch.h"
-#include "Core.h"
+#include "Firefly/Core/Core.h"
 #include "Firefly/Events/Event.h"
 
 namespace Firefly
@@ -23,7 +23,7 @@ namespace Firefly
 
     // Interface representing a desktop system based Window
     // abstract layer of different platform window
-    class FIREFLY_API Window
+    class Window
     {
     public:
         using EventCallbackFn = std::function<void(Event&)>;

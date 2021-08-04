@@ -1,12 +1,8 @@
 #include "ffpch.h"
-#include "LayerStack.h"
+#include "Firefly/Core/LayerStack.h"
 
 namespace Firefly
 {
-    LayerStack::LayerStack()
-    {
-    }
-
     LayerStack::~LayerStack()
     {
         for (Layer* layer : m_Layers)
@@ -21,13 +17,11 @@ namespace Firefly
         // m_LayerInsert record the insert position
         m_Layers.emplace(m_Layers.begin() + m_LayerInsertIndex, layer);
         m_LayerInsertIndex++;
-        layer->OnAttach();
     }
 
     void LayerStack::PushOverlay(Layer* overlay)
     {
         m_Layers.emplace_back(overlay);
-        overlay->OnAttach();
     }
 
     // layer push into first half list

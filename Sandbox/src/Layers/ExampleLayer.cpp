@@ -19,8 +19,7 @@ void ExampleLayer::OnAttach()
             0.0f, 0.5f, 0.0f, 0.8f, 0.8f, 0.2f, 1.0f,
     };
 
-    Firefly::Ref<Firefly::VertexBuffer> vertexBuffer;
-    vertexBuffer.reset(Firefly::VertexBuffer::Create(vertices, sizeof(vertices)));
+    Firefly::Ref<Firefly::VertexBuffer> vertexBuffer = Firefly::VertexBuffer::Create(vertices, sizeof(vertices));
     Firefly::BufferLayout layout = {
             {Firefly::ShaderDataType::Float3, "a_Position"},
             {Firefly::ShaderDataType::Float4, "a_Color"},
@@ -30,9 +29,8 @@ void ExampleLayer::OnAttach()
     m_VertexArray->AddVertexBuffer(vertexBuffer);
 
     uint32_t indices[3] = {0, 1, 2};
-
-    Firefly::Ref<Firefly::IndexBuffer> indexBuffer;
-    indexBuffer.reset(Firefly::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
+    Firefly::Ref<Firefly::IndexBuffer> indexBuffer =
+            Firefly::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));
     m_VertexArray->SetIndexBuffer(indexBuffer);
 
     m_SquareVA = Firefly::VertexArray::Create();
@@ -44,8 +42,7 @@ void ExampleLayer::OnAttach()
             -0.5f, 0.5f, 0.0f, 0.0f, 1.0f,
     };
 
-    Firefly::Ref<Firefly::VertexBuffer> squareVB;
-    squareVB.reset(Firefly::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
+    Firefly::Ref<Firefly::VertexBuffer> squareVB = Firefly::VertexBuffer::Create(squareVertices, sizeof(squareVertices));
 
     Firefly::BufferLayout squareVBLayout = {
             {Firefly::ShaderDataType::Float3, "a_Position"},
@@ -57,8 +54,7 @@ void ExampleLayer::OnAttach()
 
     uint32_t squareIndices[6] = {0, 1, 2, 2, 3, 0};
 
-    Firefly::Ref<Firefly::IndexBuffer> squareIB;
-    squareIB.reset(Firefly::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
+    Firefly::Ref<Firefly::IndexBuffer> squareIB = Firefly::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t));
     m_SquareVA->SetIndexBuffer(squareIB);
 
     // location 0 is the AttribPointer.
@@ -156,9 +152,8 @@ void ExampleLayer::OnUpdate(Firefly::Timestep ts)
 
     glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 
-    std::dynamic_pointer_cast<Firefly::OpenGLShader>(m_FlatColorShader)->Bind();
-    std::dynamic_pointer_cast<Firefly::OpenGLShader>(m_FlatColorShader)->UploadUniformFloat3("u_Color",
-                                                                                             m_SquareColor);
+    m_FlatColorShader->Bind();
+    m_FlatColorShader->SetFloat3("u_Color", m_SquareColor);
 
     for (int y = 0; y < 20; ++y)
     {
