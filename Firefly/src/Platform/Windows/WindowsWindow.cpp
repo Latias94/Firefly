@@ -4,7 +4,7 @@
 #include "Firefly/Events/ApplicationEvent.h"
 #include "Firefly/Events/MouseEvent.h"
 #include "Firefly/Events/KeyEvent.h"
-
+#include "Firefly/Renderer/Renderer.h"
 #include "Platform/OpenGL/OpenGLContext.h"
 
 namespace Firefly
@@ -56,6 +56,12 @@ namespace Firefly
 
         {
             FF_PROFILE_SCOPE("glfwCreateWindow");
+
+            #if defined(FF_DEBUG)
+            if (Renderer::GetAPI() == RendererAPI::API::OpenGL)
+                glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GLFW_TRUE);
+            #endif
+
             m_Window = glfwCreateWindow(props.Width, props.Height, m_Data.Title.c_str(), nullptr, nullptr);
             s_GLFWWindowCount++;
         }
