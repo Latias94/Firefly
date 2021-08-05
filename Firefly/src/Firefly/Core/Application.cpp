@@ -59,9 +59,9 @@ namespace Firefly
 //        FF_CORE_TRACE(e);
 
         // Event handled by engine first, then handled by client
-        for (auto it = m_LayerStack.end(); it != m_LayerStack.begin();)
+        for (auto it = m_LayerStack.rbegin(); it != m_LayerStack.rend(); ++it)
         {
-            (*--it)->OnEvent(e);
+            (*it)->OnEvent(e);
             if (e.Handled)
                 break;
         }
@@ -89,16 +89,15 @@ namespace Firefly
                     for (Layer* layer: m_LayerStack)
                         layer->OnUpdate(timestep);
                 }
-
-                m_ImGuiLayer->Begin();
-                {
-                    FF_PROFILE_SCOPE("LayerStack OnImGuiUpdate");
-
-                    for (Layer* layer : m_LayerStack)
-                        layer->OnImGuiRender();
-                }
-                m_ImGuiLayer->End();
             }
+            m_ImGuiLayer->Begin();
+            {
+                FF_PROFILE_SCOPE("LayerStack OnImGuiUpdate");
+
+                for (Layer* layer : m_LayerStack)
+                    layer->OnImGuiRender();
+            }
+            m_ImGuiLayer->End();
 
             m_Window->OnUpdate();
         }

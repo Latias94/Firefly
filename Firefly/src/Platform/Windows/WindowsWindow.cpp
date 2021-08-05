@@ -47,14 +47,18 @@ namespace Firefly
 
         if (s_GLFWWindowCount == 0)
         {
+            FF_PROFILE_SCOPE("glfwInit");
             int success = glfwInit();
             FF_ASSERT(success, "Could not initialize GLFW!");
 
             glfwSetErrorCallback(GLFWErrorCallback);
         }
 
-        m_Window = glfwCreateWindow(props.Width, props.Height, m_Data.Title.c_str(), nullptr, nullptr);
-        s_GLFWWindowCount++;
+        {
+            FF_PROFILE_SCOPE("glfwCreateWindow");
+            m_Window = glfwCreateWindow(props.Width, props.Height, m_Data.Title.c_str(), nullptr, nullptr);
+            s_GLFWWindowCount++;
+        }
 
         m_Context = GraphicsContext::Create(m_Window);
         m_Context->Init();
