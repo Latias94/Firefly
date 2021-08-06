@@ -207,6 +207,13 @@ namespace Firefly
         UploadUniformInt(name, value);
     }
 
+    void OpenGLShader::SetIntArray(const std::string& name, int* value, uint32_t count)
+    {
+        FF_PROFILE_FUNCTION();
+
+        UploadUniformIntArray(name, value, count);
+    }
+
     void OpenGLShader::SetFloat(const std::string& name, const float value)
     {
         FF_PROFILE_FUNCTION();
@@ -235,16 +242,22 @@ namespace Firefly
         UploadUniformMat4(name, value);
     }
 
-    void OpenGLShader::UploadUniformInt(const std::string& name, int values)
+    void OpenGLShader::UploadUniformInt(const std::string& name, int value)
     {
         GLint location = glGetUniformLocation(m_RendererID, name.c_str());
-        glUniform1i(location, values);
+        glUniform1i(location, value);
     }
 
-    void OpenGLShader::UploadUniformFloat(const std::string& name, float values)
+    void OpenGLShader::UploadUniformIntArray(const std::string& name, int* values, uint32_t count)
     {
         GLint location = glGetUniformLocation(m_RendererID, name.c_str());
-        glUniform1f(location, values);
+        glUniform1iv(location, count, values);
+    }
+
+    void OpenGLShader::UploadUniformFloat(const std::string& name, float value)
+    {
+        GLint location = glGetUniformLocation(m_RendererID, name.c_str());
+        glUniform1f(location, value);
     }
 
     void OpenGLShader::UploadUniformFloat2(const std::string& name, const glm::vec2& values)
