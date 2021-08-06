@@ -37,10 +37,13 @@ void Sandbox2D::OnUpdate(Firefly::Timestep ts)
     {
         FF_PROFILE_SCOPE("Renderer Draw");
         Firefly::Renderer2D::BeginScene(m_CameraController.GetCamera());
+//        Firefly::Renderer2D::DrawRotatedQuad({-1.0f, 0.0f}, {0.8f, 0.8f}, glm::radians(-45.0f),
+//                                             {0.8f, 0.2f, 0.3f, 1.0f});
         Firefly::Renderer2D::DrawQuad({-1.0f, 0.0f}, {0.8f, 0.8f}, {0.8f, 0.2f, 0.3f, 1.0f});
         Firefly::Renderer2D::DrawQuad({0.5f, -0.5f}, {0.5f, 0.75f}, {0.2f, 0.2f, 0.8f, 1.0f});
         // z=-0.1 cause opengl use right-hand coordinate system which its camera is face to -z.
-        Firefly::Renderer2D::DrawQuad({0.0f, 0.0f, -0.1f}, {10.0f, 10.0f}, m_CheckerboardTexture);
+        Firefly::Renderer2D::DrawQuad({0.0f, 0.0f, -0.1f}, {10.0f, 10.0f}, m_CheckerboardTexture, 10.0f,
+                                      glm::vec4(1.0f, 0.9f, 0.9f, 1.0f));
         Firefly::Renderer2D::EndScene();
     }
 }
