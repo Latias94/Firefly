@@ -26,6 +26,7 @@
 #include "Firefly/Renderer/Buffer.h"
 #include "Firefly/Renderer/Shader.h"
 #include "Firefly/Renderer/Texture.h"
+#include "Firefly/Renderer/SubTexture2D.h"
 #include "Firefly/Renderer/VertexArray.h"
 
 #include "Firefly/Renderer/OrthographicCamera.h"

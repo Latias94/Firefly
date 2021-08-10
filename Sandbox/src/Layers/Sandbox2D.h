@@ -22,7 +22,9 @@ private:
 
     Firefly::Ref<Firefly::Shader> m_FlatColorShader;
 
-    Firefly::Ref<Firefly::Texture2D> m_CheckerboardTexture;
+    Firefly::Ref<Firefly::Texture2D>    m_CheckerboardTexture;
+    Firefly::Ref<Firefly::Texture2D>    m_SpriteSheet;
+    Firefly::Ref<Firefly::SubTexture2D> m_SubTextureStair, m_SubTextureBarrel, m_SubTextureTree;
 
     struct ProfileResult
     {
