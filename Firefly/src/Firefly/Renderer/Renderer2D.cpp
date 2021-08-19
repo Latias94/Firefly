@@ -20,7 +20,7 @@ namespace Firefly
 
     struct Renderer2DData
     {
-        static const uint32_t MaxQuads        = 100; // Per Draw Call
+        static const uint32_t MaxQuads        = 1000; // Per Draw Call
         static const uint32_t MaxVertices     = MaxQuads * 4;
         static const uint32_t MaxIndices      = MaxQuads * 6;
         static const uint32_t MaxTextureSlots = 32; // TODO: RenderCaps
@@ -214,6 +214,9 @@ namespace Firefly
                                                {1.0f, 1.0f},
                                                {0.0f, 1.0f}};
 
+        if (s_Data.QuadIndexCount >= Renderer2DData::MaxIndices)
+            FlushAndReset();
+
         float textureIndex = 0.0f;
 
         for (uint32_t i = 1; i < s_Data.TextureSlotIndex; i++)
@@ -227,7 +230,7 @@ namespace Firefly
 
         if (textureIndex == 0.0f)
         {
-            if (s_Data.QuadIndexCount >= Renderer2DData::MaxIndices)
+            if (s_Data.TextureSlotIndex >= Renderer2DData::MaxTextureSlots)
             {
                 FlushAndReset();
             }
@@ -265,10 +268,12 @@ namespace Firefly
     {
         FF_PROFILE_FUNCTION();
 
-
-
         constexpr size_t quadVertexCount = 4;
         constexpr glm::vec4 color           = {1.0f, 1.0f, 1.0f, 1.0f};
+
+        if (s_Data.QuadIndexCount >= Renderer2DData::MaxIndices)
+            FlushAndReset();
+
         const glm::vec2* textureCoords = subTexture->GetTexCoords();
         const Ref<Texture2D> texture = subTexture->GetTexture();
 
@@ -285,7 +290,7 @@ namespace Firefly
 
         if (textureIndex == 0.0f)
         {
-            if (s_Data.QuadIndexCount >= Renderer2DData::MaxIndices)
+            if (s_Data.TextureSlotIndex >= Renderer2DData::MaxTextureSlots)
             {
                 FlushAndReset();
             }
