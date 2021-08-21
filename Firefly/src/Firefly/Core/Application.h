@@ -14,7 +14,7 @@ namespace Firefly
     class Application
     {
     public:
-        Application();
+        Application(const std::string& name = "Firefly App");
 
         virtual ~Application();
 

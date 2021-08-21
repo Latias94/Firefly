@@ -15,3 +15,4 @@ set(CMAKE_CXX_STANDARD 17)
 
 add_subdirectory(Firefly)
 add_subdirectory(Sandbox)
+add_subdirectory(FireflyEditor)

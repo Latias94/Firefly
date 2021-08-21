@@ -58,5 +58,6 @@ group ""
 
 include "Firefly"
 include "Sandbox"
+include "FireflyEditor"
 
 

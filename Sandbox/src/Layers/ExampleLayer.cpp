@@ -5,11 +5,11 @@
 #include <glm/ext/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-ExampleLayer::ExampleLayer() : Layer("Example"), m_CameraController(1280.0f / 720.0f, true)
+EditorLayer::EditorLayer() : Layer("Example"), m_CameraController(1280.0f / 720.0f, true)
 {
 }
 
-void ExampleLayer::OnAttach()
+void EditorLayer::OnAttach()
 {
     m_VertexArray = Firefly::VertexArray::Create();
 
@@ -20,6 +20,7 @@ void ExampleLayer::OnAttach()
     };
 
     Firefly::Ref<Firefly::VertexBuffer> vertexBuffer = Firefly::VertexBuffer::Create(vertices, sizeof(vertices));
+
     Firefly::BufferLayout layout = {
             {Firefly::ShaderDataType::Float3, "a_Position"},
             {Firefly::ShaderDataType::Float4, "a_Color"},
@@ -29,8 +30,10 @@ void ExampleLayer::OnAttach()
     m_VertexArray->AddVertexBuffer(vertexBuffer);
 
     uint32_t indices[3] = {0, 1, 2};
+
     Firefly::Ref<Firefly::IndexBuffer> indexBuffer =
-            Firefly::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));
+                                               Firefly::IndexBuffer::Create(indices,
+                                                                            sizeof(indices) / sizeof(uint32_t));
     m_VertexArray->SetIndexBuffer(indexBuffer);
 
     m_SquareVA = Firefly::VertexArray::Create();
@@ -42,7 +45,9 @@ void ExampleLayer::OnAttach()
             -0.5f, 0.5f, 0.0f, 0.0f, 1.0f,
     };
 
-    Firefly::Ref<Firefly::VertexBuffer> squareVB = Firefly::VertexBuffer::Create(squareVertices, sizeof(squareVertices));
+    Firefly::Ref<Firefly::VertexBuffer> squareVB =
+                                                Firefly::VertexBuffer::Create(squareVertices,
+                                                                              sizeof(squareVertices));
 
     Firefly::BufferLayout squareVBLayout = {
             {Firefly::ShaderDataType::Float3, "a_Position"},
@@ -54,7 +59,9 @@ void ExampleLayer::OnAttach()
 
     uint32_t squareIndices[6] = {0, 1, 2, 2, 3, 0};
 
-    Firefly::Ref<Firefly::IndexBuffer> squareIB = Firefly::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t));
+    Firefly::Ref<Firefly::IndexBuffer> squareIB =
+                                               Firefly::IndexBuffer::Create(squareIndices, sizeof(squareIndices) /
+                                                                                           sizeof(uint32_t));
     m_SquareVA->SetIndexBuffer(squareIB);
 
     // location 0 is the AttribPointer.
@@ -134,12 +141,12 @@ void ExampleLayer::OnAttach()
     textureShader->SetInt("u_Texture", 0); // texture slot
 }
 
-void ExampleLayer::OnDetach()
+void EditorLayer::OnDetach()
 {
 
 }
 
-void ExampleLayer::OnUpdate(Firefly::Timestep ts)
+void EditorLayer::OnUpdate(Firefly::Timestep ts)
 {
     // Update
     m_CameraController.OnUpdate(ts);
@@ -180,7 +187,7 @@ void ExampleLayer::OnUpdate(Firefly::Timestep ts)
     Firefly::Renderer::EndScene();
 }
 
-void ExampleLayer::OnImGuiRender()
+void EditorLayer::OnImGuiRender()
 {
     ImGui::Begin("Settings");
 
@@ -188,7 +195,7 @@ void ExampleLayer::OnImGuiRender()
     ImGui::End();
 }
 
-void ExampleLayer::OnEvent(Firefly::Event& event)
+void EditorLayer::OnEvent(Firefly::Event& event)
 {
     m_CameraController.OnEvent(event);
 

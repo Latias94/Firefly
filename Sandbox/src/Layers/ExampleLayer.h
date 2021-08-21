@@ -2,11 +2,11 @@
 
 #include "Firefly.h"
 
-class ExampleLayer : public Firefly::Layer
+class EditorLayer : public Firefly::Layer
 {
 public:
-    ExampleLayer();
-    ~ExampleLayer() override = default;
+    EditorLayer();
+    ~EditorLayer() override = default;
 
     void OnAttach() override;
     void OnDetach() override;

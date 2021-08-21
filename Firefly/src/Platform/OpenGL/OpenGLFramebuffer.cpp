@@ -1,5 +1,5 @@
-#include "Firefly.h"
-#include "OpenGLFramebuffer.h"
+#include "ffpch.h"
+#include "Platform/OpenGL/OpenGLFramebuffer.h"
 #include <glad/glad.h>
 
 // https://learnopengl.com/Advanced-OpenGL/Framebuffers

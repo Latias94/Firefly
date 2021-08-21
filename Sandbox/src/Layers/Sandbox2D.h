@@ -20,9 +20,8 @@ private:
     // temp
     Firefly::Ref<Firefly::VertexArray> m_SquareVA;
 
-    Firefly::Ref<Firefly::Shader> m_FlatColorShader;
-    Firefly::Ref<Firefly::Framebuffer> m_Framebuffer;
-    Firefly::Ref<Firefly::Texture2D>    m_CheckerboardTexture;
+    Firefly::Ref<Firefly::Shader>    m_FlatColorShader;
+    Firefly::Ref<Firefly::Texture2D> m_CheckerboardTexture;
 
     struct ProfileResult
     {
