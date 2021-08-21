@@ -34,7 +34,7 @@ void Sandbox2D::OnAttach()
 
     m_CheckerboardTexture = Firefly::Texture2D::Create("assets/textures/Checkerboard.png");
     Firefly::FramebufferSpecification fbSpec;
-    fbSpec.Width = 1280;
+    fbSpec.Width  = 1280;
     fbSpec.Height = 720;
     m_Framebuffer = Firefly::Framebuffer::Create(fbSpec);
 }
@@ -65,11 +65,11 @@ void Sandbox2D::OnUpdate(Firefly::Timestep ts)
 
         FF_PROFILE_SCOPE("Renderer Draw");
         Firefly::Renderer2D::BeginScene(m_CameraController.GetCamera());
-        Firefly::Renderer2D::DrawRotatedQuad({ 1.0f, 0.0f }, { 0.8f, 0.8f }, -45.0f, { 0.8f, 0.2f, 0.3f, 1.0f });
-        Firefly::Renderer2D::DrawQuad({ -1.0f, 0.0f }, { 0.8f, 0.8f }, { 0.8f, 0.2f, 0.3f, 1.0f });
-        Firefly::Renderer2D::DrawQuad({ 0.5f, -0.5f }, { 0.5f, 0.75f }, m_SquareColor);
-        Firefly::Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.1f }, { 20.0f, 20.0f }, m_CheckerboardTexture, 10.0f);
-        Firefly::Renderer2D::DrawRotatedQuad({ -2.0f, 0.0f, 0.0f }, { 1.0f, 1.0f }, rotation, m_CheckerboardTexture, 20.0f);
+        Firefly::Renderer2D::DrawRotatedQuad({1.0f, 0.0f}, {0.8f, 0.8f}, -45.0f, {0.8f, 0.2f, 0.3f, 1.0f});
+        Firefly::Renderer2D::DrawQuad({-1.0f, 0.0f}, {0.8f, 0.8f}, {0.8f, 0.2f, 0.3f, 1.0f});
+        Firefly::Renderer2D::DrawQuad({0.5f, -0.5f}, {0.5f, 0.75f}, m_SquareColor);
+        Firefly::Renderer2D::DrawQuad({0.0f, 0.0f, -0.1f}, {20.0f, 20.0f}, m_CheckerboardTexture, 10.0f);
+        Firefly::Renderer2D::DrawRotatedQuad({-2.0f, 0.0f, 0.0f}, {1.0f, 1.0f}, rotation, m_CheckerboardTexture, 20.0f);
         Firefly::Renderer2D::EndScene();
 
         Firefly::Renderer2D::BeginScene(m_CameraController.GetCamera());
@@ -77,8 +77,8 @@ void Sandbox2D::OnUpdate(Firefly::Timestep ts)
         {
             for (float x = -5.0f; x < 5.0f; x += 0.5f)
             {
-                glm::vec4 color = { (x + 5.0f) / 10.0f, 0.4f, (y + 5.0f) / 10.0f, 0.7f };
-                Firefly::Renderer2D::DrawQuad({ x, y }, { 0.45f, 0.45f }, color);
+                glm::vec4 color = {(x + 5.0f) / 10.0f, 0.4f, (y + 5.0f) / 10.0f, 0.7f};
+                Firefly::Renderer2D::DrawQuad({x, y}, {0.45f, 0.45f}, color);
             }
         }
         Firefly::Renderer2D::EndScene();
