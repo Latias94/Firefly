@@ -18,6 +18,7 @@ cmake-build-*/
 
 # IMGUI runtime settings
 **/imgui.ini
+!FireflyEditor/imgui.ini
 
 # VS project setting files, should be generate by premake with generateProject.bat script.
 **.sln

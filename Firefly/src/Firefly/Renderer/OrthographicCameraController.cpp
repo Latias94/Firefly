@@ -54,6 +54,12 @@ namespace Firefly
         m_Camera.SetProjection(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel);
     }
 
+    void OrthographicCameraController::OnResize(float width, float height)
+    {
+        m_AspectRatio = width / height;
+        CalculateView();
+    }
+
     bool OrthographicCameraController::OnMouseScrolled(MouseScrolledEvent& e)
     {
         FF_PROFILE_FUNCTION();
@@ -68,8 +74,7 @@ namespace Firefly
     {
         FF_PROFILE_FUNCTION();
 
-        m_AspectRatio = e.GetWidth() / (float) e.GetHeight();
-        CalculateView();
+        OnResize((float) e.GetWidth(), (float) e.GetHeight());
         return false;
     }
 }
