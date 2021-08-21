@@ -21,10 +21,8 @@ private:
     Firefly::Ref<Firefly::VertexArray> m_SquareVA;
 
     Firefly::Ref<Firefly::Shader> m_FlatColorShader;
-
+    Firefly::Ref<Firefly::Framebuffer> m_Framebuffer;
     Firefly::Ref<Firefly::Texture2D>    m_CheckerboardTexture;
-    Firefly::Ref<Firefly::Texture2D>    m_SpriteSheet;
-    Firefly::Ref<Firefly::SubTexture2D> m_SubTextureStair, m_SubTextureBarrel, m_SubTextureTree;
 
     struct ProfileResult
     {
@@ -33,9 +31,5 @@ private:
     };
 
     glm::vec4 m_SquareColor = {0.2f, 0.3f, 0.8f, 1.0f};
-
-    std::unordered_map<char, Firefly::Ref<Firefly::SubTexture2D>> s_TextureMap;
-
-    uint32_t m_MapWidth, m_MapHeight;
 
 };
