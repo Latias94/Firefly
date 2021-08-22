@@ -13,13 +13,17 @@ namespace Firefly
         ImGuiLayer();
         ~ImGuiLayer() = default;
 
-        virtual void OnDetach() override;
-        virtual void OnAttach() override;
+        void OnDetach() override;
+        void OnAttach() override;
+        void OnEvent(Event& e) override;
 
         void Begin();
         void End();
 
+        void BlockEvents(bool block) { m_BlockEvents = block; }
+
     private:
-        float m_Time = 0.0f;
+        bool  m_BlockEvents = true;
+        float m_Time        = 0.0f;
     };
 }

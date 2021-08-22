@@ -29,6 +29,8 @@ namespace Firefly
 
         void Close();
 
+        ImGuiLayer* GetImGuiLayer() { return m_ImGuiLayer; }
+
         inline static Application& Get() { return *s_Instance; }
 
     private:
@@ -36,12 +38,12 @@ namespace Firefly
         bool OnWindowResize(WindowResizeEvent& e);
     private:
         std::unique_ptr<Window> m_Window;
-        bool                    m_Running = true;
+        bool                    m_Running   = true;
         bool                    m_Minimized = false;
 
         ImGuiLayer* m_ImGuiLayer;
         LayerStack m_LayerStack;
-        float m_LastFrameTime = 0.0f;
+        float      m_LastFrameTime          = 0.0f;
 
     private:
         static Application* s_Instance;

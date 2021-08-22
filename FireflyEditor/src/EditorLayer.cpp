@@ -60,7 +60,8 @@ namespace Firefly
         }
 
         // Update
-        m_CameraController.OnUpdate(ts);
+        if (m_ViewportFocused)
+            m_CameraController.OnUpdate(ts);
 
         // Render
         Renderer2D::ResetStats();
@@ -176,7 +177,14 @@ namespace Firefly
         ImGui::ColorEdit4("Square Color", glm::value_ptr(m_SquareColor));
         ImGui::End();
         ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{0, 0});
+
         ImGui::Begin("Viewport");
+
+        m_ViewportFocused = ImGui::IsWindowFocused();
+        m_ViewportHovered = ImGui::IsWindowHovered();
+
+        Application::Get().GetImGuiLayer()->BlockEvents(!m_ViewportFocused || !m_ViewportHovered);
+
         ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
 
         m_ViewportSize = {viewportPanelSize.x, viewportPanelSize.y};
