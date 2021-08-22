@@ -11,7 +11,7 @@ git clone --recurse-submodules -j8 https://github.com/Latias94/Firefly
 
 ### Windows
 
-Use `GenerateProjects.bat` to generate VS project files. 
+Use `GenerateProjects.bat` to generate VS project files.  
 Or Open in CLion with the help of CMakeLists.txt.
 
 ## 3rd Libraries
