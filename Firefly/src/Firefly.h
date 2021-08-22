@@ -1,7 +1,7 @@
 #pragma once
 
 // For use by Firefly applications
-#include "Firefly/Core/Core.h"
+#include "Firefly/Core/Base.h"
 
 #include "Firefly/Core/Application.h"
 #include "Firefly/Core/Layer.h"

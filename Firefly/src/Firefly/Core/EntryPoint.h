@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Firefly/Core/Core.h"
+#include "Firefly/Core/Base.h"
 
 extern Firefly::Application* Firefly::CreateApplication();
 

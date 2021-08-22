@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Firefly/Core/Core.h"
+#include "Firefly/Core/Base.h"
 #include <spdlog/spdlog.h>
 #include <spdlog/fmt/ostr.h>
 

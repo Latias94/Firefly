@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Firefly/Core/Core.h"
+#include "Firefly/Core/Base.h"
 #include "Firefly/Core/Window.h"
 #include "Firefly/Core/LayerStack.h"
 #include "Firefly/Events/Event.h"
