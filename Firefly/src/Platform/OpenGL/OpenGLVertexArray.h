@@ -16,11 +16,9 @@ namespace Firefly
         void AddVertexBuffer(const Ref <VertexBuffer>& vertexBuffer) override;
         void SetIndexBuffer(const Ref <IndexBuffer>& indexBuffer) override;
 
-        const std::vector<Ref < VertexBuffer>>&
+        const std::vector<Ref < VertexBuffer>>&GetVertexBuffers() const override { return m_VertexBuffers; }
 
-        GetVertexBuffers() const { return m_VertexBuffers; }
-
-        const Ref <IndexBuffer>& GetIndexBuffer() const { return m_IndexBuffer; };
+        const Ref <IndexBuffer>& GetIndexBuffer() const override { return m_IndexBuffer; };
     private:
         std::vector<Ref < VertexBuffer>> m_VertexBuffers;
         Ref <IndexBuffer> m_IndexBuffer;
