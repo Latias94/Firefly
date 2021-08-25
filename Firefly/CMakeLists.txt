@@ -53,6 +53,7 @@ target_include_directories(Firefly PUBLIC
         "vendor/imgui"
         "vendor/glm"
         "vendor/stb"
+        "vendor/entt/include"
         )
 
 target_compile_definitions(

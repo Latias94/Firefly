@@ -42,6 +42,11 @@ project "Firefly"
         "%{includeDir.imgui}",
         "%{includeDir.glm}",
         "%{includeDir.stb}",
+        "%{includeDir.entt}",
+        --"%{includeDir.box2d}",
+        --"%{includeDir.json}",
+        --"%{includeDir.fmt}",
+        --"%{includeDir.yaml_cpp}",
     }
 
     links (linkLibs)
