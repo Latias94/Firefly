@@ -49,7 +49,7 @@
     #define FF_ENABLE_ASSERTS
 #endif
 
-// TODO: add an single argument assert macro
+// TODO: Make this macro able to take in no arguments except condition
 #ifdef FF_ENABLE_ASSERTS
 #define FF_ASSERT(x, ...) {if(!(x)) { FF_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
 #define FF_CORE_ASSERT(x, ...) {if(!(x)) { FF_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }

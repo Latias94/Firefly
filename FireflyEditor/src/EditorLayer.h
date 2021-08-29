@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Firefly.h"
+#include "Firefly/Scene/Scene.h"
 
 namespace Firefly
 {
@@ -24,6 +25,10 @@ namespace Firefly
 
         Ref <Shader>      m_FlatColorShader;
         Ref <Framebuffer> m_Framebuffer;
+
+        Ref<Scene> m_ActiveScene;
+        entt::entity m_SquareEntity;
+
         Ref <Texture2D>   m_CheckerboardTexture;
 
         bool      m_ViewportFocused = false;

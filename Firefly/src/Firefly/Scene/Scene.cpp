@@ -1,5 +1,7 @@
 #include "ffpch.h"
-#include "Scene.h"
+#include "Firefly/Scene/Scene.h"
+#include "Firefly/Scene/Components.h"
+#include "Firefly/Renderer/Renderer2D.h"
 #include <glm/glm.hpp>
 
 namespace Firefly
@@ -8,20 +10,7 @@ namespace Firefly
 
     Scene::Scene()
     {
-        struct MeshComponent
-        {
-        };
-        struct TransformComponent
-        {
-            glm::mat4 Transform;
-            TransformComponent() = default;
-            TransformComponent(const TransformComponent&) = default;
-
-            TransformComponent(const glm::mat4 transform) : Transform(transform) {}
-
-            operator const glm::mat4&() { return Transform; }
-        };
-
+        #if ENTT_EXAMPLE_CODE
         entt::entity entity = m_Registry.create();
         m_Registry.emplace<TransformComponent>(entity, glm::mat4(1.0f));
         m_Registry.on_construct<TransformComponent>().connect<&OnTransformConstruct>();
@@ -34,16 +23,34 @@ namespace Firefly
             // all transform in the scene
             TransformComponent& transform = view.get<TransformComponent>(entity);
         }
-        auto group = m_Registry.group<TransformComponent>(entt::get<MeshComponent>);
+        auto group = m_Registry.group<TransformComponent>(entt::get<SpriteRendererComponent>);
 
         for (auto entity: group)
         {
-            auto tuple = group.get<TransformComponent, MeshComponent>(entity);
+            auto [transform, sprite] = group.get<TransformComponent, SpriteRendererComponent>(entity);
+            Renderer2D::DrawQuad(transform, sprite.Color);
         }
+        #endif
     }
 
     Scene::~Scene()
     {
 
+    }
+
+    entt::entity Scene::CreateEntity()
+    {
+        return m_Registry.create();
+    }
+
+    void Scene::OnUpdate(Timestep ts)
+    {
+        auto group = m_Registry.group<TransformComponent>(entt::get<SpriteRendererComponent>);
+
+        for (auto entity: group)
+        {
+            auto[transform, sprite] = group.get<TransformComponent, SpriteRendererComponent>(entity);
+            Renderer2D::DrawQuad(transform, sprite.Color);
+        }
     }
 }

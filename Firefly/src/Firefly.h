@@ -16,6 +16,9 @@
 
 #include "Firefly/ImGui/ImGuiLayer.h"
 
+#include "Firefly/Scene/Scene.h"
+#include "Firefly/Scene/Components.h"
+
 // Renderer ---------------------
 
 #include "Firefly/Renderer/Renderer.h"
