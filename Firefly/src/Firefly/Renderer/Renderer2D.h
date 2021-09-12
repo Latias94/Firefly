@@ -3,6 +3,7 @@
 #include "Firefly/Renderer/OrthographicCamera.h"
 #include "Firefly/Renderer/Texture.h"
 #include "Firefly/Renderer/SubTexture2D.h"
+#include "Firefly/Renderer/Camera.h"
 
 namespace Firefly
 {
@@ -12,7 +13,8 @@ namespace Firefly
         static void Init();
         static void Shutdown();
 
-        static void BeginScene(const OrthographicCamera& camera);
+        static void BeginScene(const Camera& camera, const glm::mat4& transform);
+        static void BeginScene(const OrthographicCamera& camera); // TODO: Remove
         static void EndScene();
 
         static void Flush();
